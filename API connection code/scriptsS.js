@@ -35,7 +35,7 @@ $(document).ready(function() {
       ${item.snippet.title}
       </td>
       <td>
-      <iframe src="http://www.youtube.com/embed/${item.id.videoId}" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+      <img width = "200" height = "200" src ="${item.snippet.thumbnails.high.url}"/>
       </td>
       </tr>
       `
