@@ -2,6 +2,7 @@
     --main-bg-color: #eeeeee;
     --header-bg-color: rgb(0, 42, 107);
     --header-title-color: rgb(255, 212, 0);
+    --navlink-color: rgb(146, 190, 226);
 }
 
 h1 {
@@ -26,7 +27,10 @@ div.logo {
     position: relative;
     font-family: 'Orbitron', sans-serif;
     font-size: 2rem;
-    color: aqua;
+    color: var(--header-title-color);
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: var(--navlink-color);
+    outline: 1px;
     box-sizing: border-box;
     text-align: center;
     padding: 5px;
@@ -40,17 +44,13 @@ div.logo:hover {
     cursor: pointer;
 }
 
-div.links {
-    width: 94%;
-    padding-left: 20px;
-    margin: auto;
-}
-
 div.navbar .logo::before, div.navbar .logo::after {
     box-sizing: inherit;
     content: "";
     position: absolute;
     color: var(--header-title-color);
+    transition: height .2s, width .2s;
+    transition-timing-function: ease;
 }
 
 .logo::before {
@@ -58,10 +58,9 @@ div.navbar .logo::before, div.navbar .logo::after {
     height: 50%;
     top: 0;
     left: 0;
+    border-color: var(--navlink-color);
     border-top-style: solid;
-    border-top-color: var(--header-title-color);
     border-left-style: solid;
-    border-left-color: var(--header-title-color);
 }
 
 .logo::after {
@@ -69,10 +68,81 @@ div.navbar .logo::before, div.navbar .logo::after {
     height: 50%;
     bottom: 0;
     right: 0;
+    border-color: var(--navlink-color);
     border-bottom-style: solid;
-    border-bottom-color: var(--header-title-color);
     border-right-style: solid;
-    border-right-color: var(--header-title-color);
+}
+
+.logo:hover::before {
+    width: 35%;
+    height: 60%;
+    top: 0;
+    left: 0;
+    border-color: var(--navlink-color);
+    border-top-style: solid;
+    border-left-style: solid;
+}
+
+.logo:hover::after {
+    width: 35%;
+    height: 60%;
+    bottom: 0;
+    right: 0;
+    border-color: var(--navlink-color);
+    border-bottom-style: solid;
+    border-right-style: solid;
+}
+
+div.links {
+    display: flex;
+    margin: auto;
+    width: 94%;
+    padding-left: 20px;
+}
+
+button {
+    margin: auto;
+    position: relative;
+    box-sizing: border-box;
+}
+
+button::before, button::after {
+    height: 0%;
+    box-sizing: inherit;
+    content: "";
+    position: absolute;
+    color: var(--header-title-color);
+    transition: height .5s;
+}
+
+button::before {
+    left: 0;
+    top: 0;
+    border-color: var(--header-title-color);
+    border-left-style: solid;
+}
+
+button::after {
+    right: 0;
+    top: 0;
+    border-color: var(--header-title-color);
+    border-right-style: solid;
+}
+
+
+button:hover, button:hover::before, button:hover::after {
+    height: 100%;
+}
+
+.navlink {
+    border: none;
+    color: var(--navlink-color);
+    background-color: inherit;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Rubik', sans-serif;
 }
 
 
@@ -82,10 +152,11 @@ div.landingHeader {
     align-items: stretch;
     justify-content: center;
     background-color: var(--header-bg-color);
-    height: 20rem;
+    font-family: 'Rubik', sans-serif;
+    height: 35rem;
 }
 
-div.landingHeader span{
+div.landingHeader span {
     text-align: center;
     font-family: 'Orbitron', sans-serif;
     font-size: 55px;
@@ -96,10 +167,16 @@ div.landingHeader span{
     padding-top: 2rem;
 }
 
-div.landingHeader span .outline{
+div.landingHeader span .outline {
     color: var(--header-bg-color);
     -webkit-text-stroke-width: 3px;
     -webkit-text-stroke-color: var(--header-title-color);
+}
+
+div.landingHeader p {
+    text-align: center;
+    font-size: 3rem;
+    color: var(--navlink-color);
 }
 
 /* Wave divider */
