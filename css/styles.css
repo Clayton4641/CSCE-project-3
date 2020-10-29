@@ -1,0 +1,20 @@
+:root {
+    --main-bg-color: #eeeeee;
+}
+
+body {
+    margin: 0;
+}
+
+div.landingHeader {
+    display: flex;
+    justify-content: center;
+    background-color: cornflowerblue;
+    min-height: 10rem;
+}
+
+div.landingHeader h1{
+    text-align: center;
+    vertical-align: middle;
+    margin: auto;
+}
