@@ -233,4 +233,12 @@ svg {
 div.mainBody {
     height: 100vw;
     background-image: linear-gradient(var(--navlink-color), var(--header-bg-color));
+    background: -moz-linear-gradient(var(--navlink-color), var(--header-bg-color)); /* FF 3.6+ */  
+    background: -ms-linear-gradient(var(--navlink-color), var(--header-bg-color)); /* IE10 */  
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--navlink-color)), color-stop(100%, var(--header-bg-color))); /* Safari 4+, Chrome 2+ */  
+    background: -webkit-linear-gradient(var(--navlink-color), var(--header-bg-color)); /* Safari 5.1+, Chrome 10+ */  
+    background: -o-linear-gradient(var(--navlink-color), var(--header-bg-color)); /* Opera 11.10 */  
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=var(--navlink-color), endColorstr=var(--header-bg-color)); /* IE6 & IE7 */  
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--navlink-color)', endColorstr=var(--header-bg-color))"; /* IE8+ */  
+    background: linear-gradient(var(--navlink-color), var(--header-bg-color)); /* the standard */  
 }
