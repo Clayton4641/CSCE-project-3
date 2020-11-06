@@ -8,6 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
     <!-- Setup -->
     <title>Gamer Gathering</title>
     <meta charset="UTF-8">
@@ -15,17 +18,13 @@
 
 <body>
     <!-- Navbar -->
-    <div class="navbar">
-        <div class="logo">
-            <span class="noselect">GG</span>
-        </div>
-        <div class="links">
-            <button class="navlink noselect">Link 1</button>
-            <button class="navlink noselect">Link 2</button>
-            <button class="navlink noselect">Link 3</button>
-            <button class="navlink noselect">Link 4</button>
-        </div>
-    </div>
+    <div class="navbar" id="navbar"></div>
+
+    <script>
+        $(function () {
+            $("#navbar").load("nav.html");
+        });
+    </script>
 
     <!-- Header -->
     <div class="landingHeader">
@@ -86,7 +85,7 @@
                 <h1>Stream<br>
                     Recommendations</h1>
                 <p>
-                    Gamer Gathering offers hundreds of game recommendation based 
+                    Gamer Gathering offers hundreds of stream recommendation based 
                     that is personalized just for you!
                 </p>
             </div>
@@ -101,7 +100,7 @@
                 <h1>Video<br>
                     Recommendations</h1>
                 <p>
-                    Gamer Gathering offers hundreds of game recommendation based 
+                    Gamer Gathering offers hundreds of video recommendation based 
                     that is personalized just for you!
                 </p>
             </div>

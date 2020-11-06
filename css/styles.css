@@ -110,7 +110,18 @@ div.navbar .logo::before, div.navbar .logo::after {
 div.links {
     display: flex;
     margin: auto;
-    width: 94%;
+    width: 70%;
+    padding-left: 20px;
+}
+
+u.navlinkU {
+    text-decoration: underline;
+    text-decoration-color: var(--navlink-color);
+}
+
+div.space {
+    margin: auto;
+    width: 10%;
     padding-left: 20px;
 }
 
@@ -168,7 +179,7 @@ div.landingHeader {
     justify-content: center;
     background-color: var(--header-bg-color);
     font-family: 'Rubik', sans-serif;
-    height: 80vw;
+    height: 80vh;
 }
 
 div.landingHeader span {
@@ -222,6 +233,7 @@ div.headerBody div.rotatingIcons {
     position: absolute;
     transform: translateZ(-65px);
     transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
     top: 50px;
     left: 50%;
     -webkit-animation: rotateIcons 15s linear infinite;
@@ -232,6 +244,7 @@ div.headerBody div.floatingIcons {
     position: absolute;
     transform: translateZ(-65px);
     transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
     left: 50%;
     -webkit-animation: floatEffect 15s linear infinite;
     animation: floatEffect 15s linear infinite;
@@ -239,10 +252,10 @@ div.headerBody div.floatingIcons {
 
 @-webkit-keyframes rotateIcons {
     0% {
-        transform: rotate3d(0, 1, 0, 0deg)
+        -webkit-transform: rotate3d(0, 1, 0, 0deg)
     }
     100% {
-        transform: rotate3d(0, 1, 0, 360deg);
+        -webkit-transform: rotate3d(0, 1, 0, 360deg);
     }
 }
 
@@ -257,22 +270,22 @@ div.headerBody div.floatingIcons {
 
 @-webkit-keyframes floatEffect {
     0% {
-        transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
     }
     10% {
-        transform: translate3d(0, 14px, 0);
+        -webkit-transform: translate3d(0, 14px, 0);
     }
     25% {
-        transform: translate3d(0, 0px, 0);
+        -webkit-transform: translate3d(0, 0px, 0);
     }
     50% {
-        transform: translate3d(0, -16px, 0);
+        -webkit-transform: translate3d(0, -16px, 0);
     }
     75% {
-        transform: translate3d(0, 0px, 0);
+        -webkit-transform: translate3d(0, 0px, 0);
     }
     100% {
-        transform: translate3d(0, 18px, 0);
+        -webkit-transform: translate3d(0, 18px, 0);
     }
 }
 
@@ -324,13 +337,13 @@ div.landingHeader img {
 
 div.headerBody div.hands img {
     position: absolute;
-    width: 35vw;
+    width: 35vh;
     top: 55%;
     z-index: 1;
 }
 
 div.headerBody div.hands img:nth-child(1) {
-    left: 35%;
+    left: 40vw;
     transform: rotate(-2deg);
 }
 
