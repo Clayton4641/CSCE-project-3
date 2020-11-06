@@ -1,9 +1,20 @@
 :root {
     --main-bg-color: #eeeeee;
     --header-bg-color: rgb(0, 42, 107);
-    --header-title-color: rgb(255, 212, 0);
+    --header-title-color: rgb(255, 215, 0);
+    --header-title-highlight-color: rgb(218, 181, 0);
     --navlink-color: rgb(146, 190, 226);
     --landingPage-sub-color: rgb(136, 183, 223);
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }
 
 h1 {
@@ -20,6 +31,7 @@ body {
 div.navbar {
     display: flex;
     padding: 15px;
+    padding-bottom: 0px;
     background-color: var(--header-bg-color);
 }
 
@@ -156,7 +168,7 @@ div.landingHeader {
     justify-content: center;
     background-color: var(--header-bg-color);
     font-family: 'Rubik', sans-serif;
-    height: 35rem;
+    height: 80vw;
 }
 
 div.landingHeader span {
@@ -164,17 +176,167 @@ div.landingHeader span {
     font-family: 'Orbitron', sans-serif;
     font-size: 55px;
     color: var(--header-title-color);
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: var(--header-title-highlight-color);
     width: 100%;
     margin: auto;
-    padding: 2rem 0rem;
-    text-shadow: 2px 2px var(--navlink-color);
+    padding: 0rem 0rem;
+    text-shadow:1px 1px var(--navlink-color), 
+                2px 2px var(--navlink-color), 
+                3px 3px var(--navlink-color),
+                4px 4px var(--navlink-color),
+                5px 5px var(--navlink-color);
+}
+
+div.landingHeader span::before{
+    display: inline-block;
+    content: "";
+    margin-bottom: 10px;
+    border-top: .8rem solid rgb(0, 25, 61);
+    border-bottom: .3rem solid rgb(23, 67, 128);
+    width: 100vw;
+}
+
+div.landingHeader span::after{
+    display: inline-block;
+    content: "";
+    margin-top: -20px;
+    border-top: .3rem solid rgb(23, 67, 128);
+    border-bottom: .8rem solid rgb(0, 25, 61);
+    width: 100vw;
 }
 
 div.landingHeader span .outline {
     color: var(--header-bg-color);
     -webkit-text-stroke-width: 3px;
     -webkit-text-stroke-color: var(--header-title-color);
-    text-shadow: 4px 4px var(--navlink-color);
+    text-shadow:2px 2px var(--navlink-color),
+                3px 3px var(--navlink-color),
+                4px 4px var(--navlink-color),
+                5px 5px var(--navlink-color),
+                6px 6px var(--navlink-color),
+                7px 7px var(--navlink-color);
+}
+
+div.headerBody div.rotatingIcons {
+    position: absolute;
+    transform: translateZ(-65px);
+    transform-style: preserve-3d;
+    top: 50px;
+    left: 50%;
+    -webkit-animation: rotateIcons 15s linear infinite;
+    animation: rotateIcons 15s linear infinite;
+} 
+
+div.headerBody div.floatingIcons {
+    position: absolute;
+    transform: translateZ(-65px);
+    transform-style: preserve-3d;
+    left: 50%;
+    -webkit-animation: floatEffect 15s linear infinite;
+    animation: floatEffect 15s linear infinite;
+}
+
+@-webkit-keyframes rotateIcons {
+    0% {
+        transform: rotate3d(0, 1, 0, 0deg)
+    }
+    100% {
+        transform: rotate3d(0, 1, 0, 360deg);
+    }
+}
+
+@keyframes rotateIcons {
+    0% {
+        transform: rotate3d(0, 1, 0, 0deg)
+    }
+    100% {
+        transform: rotate3d(0, 1, 0, 360deg);
+    }
+}
+
+@-webkit-keyframes floatEffect {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    10% {
+        transform: translate3d(0, 14px, 0);
+    }
+    25% {
+        transform: translate3d(0, 0px, 0);
+    }
+    50% {
+        transform: translate3d(0, -16px, 0);
+    }
+    75% {
+        transform: translate3d(0, 0px, 0);
+    }
+    100% {
+        transform: translate3d(0, 18px, 0);
+    }
+}
+
+@keyframes floatEffect {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    15% {
+        transform: translate3d(0, 14px, 0);
+    }
+    23% {
+        transform: translate3d(0, 0px, 0);
+    }
+    49% {
+        transform: translate3d(0, -16px, 0);
+    }
+    65% {
+        transform: translate3d(0, 0px, 0);
+    }
+    85% {
+        transform: translate3d(0, 13px, 0);
+    }
+    100% {
+        transform: translate3d(0, 0px, 0);
+    }
+}
+
+div.headerBody div.imageContainer {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: -65px;
+    width: 130px;
+    height: 130px;
+}
+
+div.imageContainer:nth-child(n) {
+    background-color: rgba(88, 88, 88, 0.308);
+    border: 2px solid var(--navlink-color);
+} 
+
+div.landingHeader img {
+    position: relative;
+    margin: auto;
+    width: 100px;
+    z-index: 1;
+}
+
+div.headerBody div.hands img {
+    position: absolute;
+    width: 35vw;
+    top: 55%;
+    z-index: 1;
+}
+
+div.headerBody div.hands img:nth-child(1) {
+    left: 35%;
+    transform: rotate(-2deg);
+}
+
+div.headerBody div.hands img:nth-child(2) {
+    left: 11%;
+    transform: scaleX(-1) rotate(-25deg) rotateY(25deg);
 }
 
 div.headerBody {
@@ -205,11 +367,11 @@ svg {
 }
 
 .wavePath-22lfEN {
-    -webkit-animation: waveDividerAnimation-2kPl3C 20s linear infinite alternate;
-    animation: waveDividerAnimation-2kPl3C 10s linear infinite alternate;
+    -webkit-animation: waveDividerAnimation 20s linear infinite alternate;
+    animation: waveDividerAnimation 10s linear infinite alternate;
 }
 
-@-webkit-keyframes waveDividerAnimation-2kPl3C {
+@-webkit-keyframes waveDividerAnimation {
     0% {
         d: path("M826.337463,25.5396311 C670.970254,58.655965 603.696181,68.7870267 447.802481,35.1443383 C293.342778,1.81111414 137.33377,1.81111414 0,1.81111414 L0,150 L1920,150 L1920,1.81111414 C1739.53523,-16.6853983 1679.86404,73.1607868 1389.7826,37.4859505 C1099.70117,1.81111414 981.704672,-7.57670281 826.337463,25.5396311 Z");
     }
@@ -221,7 +383,7 @@ svg {
     }
 }
 
-@keyframes waveDividerAnimation-2kPl3C {
+@keyframes waveDividerAnimation {
     0% {
         d: path("M826.337463,25.5396311 C670.970254,58.655965 603.696181,68.7870267 447.802481,35.1443383 C293.342778,1.81111414 137.33377,1.81111414 0,1.81111414 L0,150 L1920,150 L1920,1.81111414 C1739.53523,-16.6853983 1679.86404,73.1607868 1389.7826,37.4859505 C1099.70117,1.81111414 981.704672,-7.57670281 826.337463,25.5396311 Z");
     }
@@ -240,7 +402,12 @@ div.mainBody {
 
 div.mainBody div.section {
     position: relative;
-    height: 35vw;
+    height: 45vw;
+}
+
+div.mainBody div.textBody {
+    margin: 4rem 3rem;
+    width: 40%;
 }
 
 div.section div.waveDivider {
@@ -270,12 +437,17 @@ div.videoRecs {
 }
 
 div.mainBody h1 {
+    font-family: 'Rubik Mono One', sans-serif;
     background-color: transparent;
     font-size: 2rem;
     margin: 0;
-    padding-left: 10px;
+}
+
+div.mainBody p {
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.5rem;
 }
 
 div.mainBody div{
-    padding-top: 25px;
+    padding-top: 15px;
 }
