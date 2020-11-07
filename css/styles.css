@@ -179,7 +179,7 @@ div.landingHeader {
     justify-content: center;
     background-color: var(--header-bg-color);
     font-family: 'Rubik', sans-serif;
-    height: 80vh;
+    height: 90vh;
 }
 
 div.landingHeader span {
@@ -191,7 +191,7 @@ div.landingHeader span {
     -webkit-text-stroke-color: var(--header-title-highlight-color);
     width: 100%;
     margin: auto;
-    padding: 0rem 0rem;
+    padding: 1.5rem 0rem;
     text-shadow:1px 1px var(--navlink-color), 
                 2px 2px var(--navlink-color), 
                 3px 3px var(--navlink-color),
@@ -202,19 +202,19 @@ div.landingHeader span {
 div.landingHeader span::before{
     display: inline-block;
     content: "";
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     border-top: .8rem solid rgb(0, 25, 61);
     border-bottom: .3rem solid rgb(23, 67, 128);
     width: 100vw;
 }
 
 div.landingHeader span::after{
-    display: inline-block;
+    /* display: inline-block;
     content: "";
     margin-top: -20px;
     border-top: .3rem solid rgb(23, 67, 128);
     border-bottom: .8rem solid rgb(0, 25, 61);
-    width: 100vw;
+    width: 100vw; */
 }
 
 div.landingHeader span .outline {
@@ -234,7 +234,7 @@ div.headerBody div.rotatingIcons {
     transform: translateZ(-65px);
     transform-style: preserve-3d;
     -webkit-transform-style: preserve-3d;
-    top: 50px;
+    top: 150px;
     left: 50%;
     -webkit-animation: rotateIcons 15s linear infinite;
     animation: rotateIcons 15s linear infinite;
@@ -335,21 +335,27 @@ div.landingHeader img {
     z-index: 1;
 }
 
+div.hands {
+    position: relative;
+    left: 50%;
+}
+
 div.headerBody div.hands img {
     position: absolute;
-    width: 35vh;
-    top: 55%;
+    width: 25vh;
+    top: 22vh;
     z-index: 1;
 }
 
 div.headerBody div.hands img:nth-child(1) {
-    left: 40vw;
-    transform: rotate(-2deg);
+    left: 80px;
+    width: 26vh;
+    transform: rotate(10deg);
 }
 
 div.headerBody div.hands img:nth-child(2) {
-    left: 11%;
-    transform: scaleX(-1) rotate(-25deg) rotateY(25deg);
+    left: -330px;
+    transform: rotate(-15deg);
 }
 
 div.headerBody {
@@ -357,10 +363,22 @@ div.headerBody {
     height: 100%;
 }
 
+div.headerText {
+    position: relative;
+    left: 50%;
+}
+
 div.headerBody p {
+    position: absolute;
+    width: 800px;
+    left: -400px;
+    top: 1vh;
+    z-index: 1;
     text-align: center;
-    font-size: 3rem;
+    font-size: 1.5rem;
     color: var(--navlink-color);
+    /* -webkit-text-stroke: white; */
+    /* -webkit-text-stroke-width: 1px; */
 }
 
 /* Wave divider */
@@ -380,8 +398,8 @@ svg {
 }
 
 .wavePath-22lfEN {
-    -webkit-animation: waveDividerAnimation 20s linear infinite alternate;
-    animation: waveDividerAnimation 10s linear infinite alternate;
+    -webkit-animation: waveDividerAnimation 30s linear infinite alternate;
+    animation: waveDividerAnimation 30s linear infinite alternate;
 }
 
 @-webkit-keyframes waveDividerAnimation {
