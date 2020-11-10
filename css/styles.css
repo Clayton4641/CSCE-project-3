@@ -1,10 +1,17 @@
 :root {
     --main-bg-color: #eeeeee;
-    --header-bg-color: rgb(0, 42, 107);
-    --header-title-color: rgb(255, 215, 0);
-    --header-title-highlight-color: rgb(218, 181, 0);
+    --header-bg-color: rgb(0, 41, 107);
+    --header-title-color: rgb(253, 197, 0);
+    --header-title-highlight-color: rgb(226, 177, 1);
     --navlink-color: rgb(146, 190, 226);
     --landingPage-sub-color: rgb(136, 183, 223);
+}
+
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
 .noselect {
@@ -31,7 +38,7 @@ body {
 div.navbar {
     display: flex;
     padding: 15px;
-    padding-bottom: 0px;
+    padding-bottom: .7vh;
     background-color: var(--header-bg-color);
 }
 
@@ -185,13 +192,14 @@ div.landingHeader {
 div.landingHeader span {
     text-align: center;
     font-family: 'Orbitron', sans-serif;
-    font-size: 55px;
+    font-size: 50px;
     color: var(--header-title-color);
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: var(--header-title-highlight-color);
     width: 100%;
     margin: auto;
-    padding: 1.5rem 0rem;
+    padding: 0rem 0rem;
+    padding-bottom: 4vh;
     text-shadow:1px 1px var(--navlink-color), 
                 2px 2px var(--navlink-color), 
                 3px 3px var(--navlink-color),
@@ -202,7 +210,7 @@ div.landingHeader span {
 div.landingHeader span::before{
     display: inline-block;
     content: "";
-    margin-bottom: 30px;
+    margin-bottom: 2vh;
     border-top: .8rem solid rgb(0, 25, 61);
     border-bottom: .3rem solid rgb(23, 67, 128);
     width: 100vw;
@@ -234,7 +242,7 @@ div.headerBody div.rotatingIcons {
     transform: translateZ(-65px);
     transform-style: preserve-3d;
     -webkit-transform-style: preserve-3d;
-    top: 150px;
+    top: 15vh;
     left: 50%;
     -webkit-animation: rotateIcons 15s linear infinite;
     animation: rotateIcons 15s linear infinite;
@@ -319,8 +327,8 @@ div.headerBody div.imageContainer {
     justify-content: center;
     align-items: center;
     left: -65px;
-    width: 130px;
-    height: 130px;
+    width: 15vh;
+    height: 15vh;
 }
 
 div.imageContainer:nth-child(n) {
@@ -331,7 +339,7 @@ div.imageContainer:nth-child(n) {
 div.landingHeader img {
     position: relative;
     margin: auto;
-    width: 100px;
+    width: 11vh;
     z-index: 1;
 }
 
@@ -343,18 +351,18 @@ div.hands {
 div.headerBody div.hands img {
     position: absolute;
     width: 25vh;
-    top: 22vh;
+    top: 23vh;
     z-index: 1;
 }
 
 div.headerBody div.hands img:nth-child(1) {
-    left: 80px;
-    width: 26vh;
+    left: 10vh;
+    width: 25.5vh;
     transform: rotate(10deg);
 }
 
 div.headerBody div.hands img:nth-child(2) {
-    left: -330px;
+    left: -33vh;
     transform: rotate(-15deg);
 }
 
@@ -375,26 +383,44 @@ div.headerBody p {
     top: 1vh;
     z-index: 1;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 22px;
     color: var(--navlink-color);
     /* -webkit-text-stroke: white; */
     /* -webkit-text-stroke-width: 1px; */
 }
 
 /* Wave divider */
+svg {
+    position: absolute;
+    bottom: -1px;
+}
+
+div.waveDivider#header {
+    background-color: var(--header-bg-color);
+    color: var(--navlink-color);
+}
+
+div.waveDivider#lightBlue {
+    background-color: var(--navlink-color);
+    color: var(--landingPage-sub-color);
+}
+
+div.waveDivider#darkBlue {
+    color: var(--navlink-color);
+    background-color: var(--landingPage-sub-color);
+}
 
 div.waveDivider {
     position: relative;
     width: 100%;
-    height: 25%;
+    z-index: 2;
+    height: 10rem;
     margin: auto;
-    background-color: var(--header-bg-color);
 }
 
-svg {
-    position: absolute;
-    bottom: 0;
-    color: var(--navlink-color);
+div.waveDivider svg {
+    z-index: 2;
+    color: currentColor;
 }
 
 .wavePath-22lfEN {
@@ -433,34 +459,27 @@ div.mainBody {
 
 div.mainBody div.section {
     position: relative;
-    height: 45vw;
+    display: flex;
+    align-items: center;
+    height: 40vw;
 }
 
 div.mainBody div.textBody {
-    margin: 4rem 3rem;
-    width: 40%;
-}
-
-div.section div.waveDivider {
-    background-color: inherit;
-    position: absolute;
-    bottom: 0;
+    margin: auto;
+    width: 45%;
+    max-width: 25rem;
 }
 
 div.gameRecs {
     background-color: var(--navlink-color);
 }
 
-div.gameRecs svg {
-    color: var(--landingPage-sub-color);
-}
-
 div.streamRecs {
     background-color: var(--landingPage-sub-color);
 }
 
-div.streamRecs svg {
-    color: var(--navlink-color)
+div.streamRecs img{
+    margin-left: 30px;
 }
 
 div.videoRecs {
@@ -470,7 +489,7 @@ div.videoRecs {
 div.mainBody h1 {
     font-family: 'Rubik Mono One', sans-serif;
     background-color: transparent;
-    font-size: 2rem;
+    font-size: 2.2rem;
     margin: 0;
 }
 
@@ -479,6 +498,21 @@ div.mainBody p {
     font-size: 1.5rem;
 }
 
-div.mainBody div{
-    padding-top: 15px;
+div.mainBody img {
+    width: 45%;
+    margin-right: 45px;
+}
+
+/* Reading Line */
+div.readingline {
+    z-index: 99999;
+    transform: translate(0, -50%);
+    position: absolute;
+    width: 100% !important;
+    min-width: 100% !important;
+    height: 12px;
+    box-sizing: border-box;
+    border: 3px solid #fff300;
+    border-radius: 5px;
+    background-color: black;
 }
