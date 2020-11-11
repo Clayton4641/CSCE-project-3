@@ -540,18 +540,19 @@ div.recBody {
 /* Card */
 
 div.card {
+    position: relative;
     padding: 5px;
     margin: 25px;
-    width: 250px;
-    height: 350px;
+    width: 300px;
+    height: 400px;
     border: 7px solid var(--navlink-color);
     border-radius: 30px;
     box-shadow: 6px 6px 15px black;
 }
 
 div.card img {
-    width: 170px;
-    height: 170px;
+    width: 190px;
+    height: 190px;
     display: block;
     margin: 0 auto;
     margin-top: 20px;
@@ -559,19 +560,23 @@ div.card img {
     border: 5px solid var(--navlink-color);
 }
 
-div.card a {
+div.card a.title {
     text-align: center;
     display: block;
-    margin-top: 30px;
+    height: 25%;
+    margin: 30px 0;
 
     font-family: 'Rubik', sans-serif;
-    font-size: 45px;
+    font-size: 35px;
     font-weight: 900;
     color: var(--header-title-color);
     /* -webkit-text-stroke: 1px black; */
 }
 
 div.card div.genre {
+    position: absolute;
+    bottom: 10px;
+    width: 97%;
     display: flex;
     justify-content: space-around;
 }
@@ -581,6 +586,7 @@ div.card div.genre a {
     font-weight: bolder;
     color: var(--header-bg-color);
     background-color: var(--navlink-color);
+    font-family: 'Rubik', sans-serif;
     -webkit-text-stroke: 0px;
     padding: 7px;
     border-radius: 10px;
