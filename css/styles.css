@@ -534,14 +534,66 @@ div.recHeader {
     justify-content: flex-start;
     align-items: stretch;
     text-align: center;
-    display: flex;
     height: auto!important;
 }
 
 div.recHeader span {
     margin: 0;
-    height: 125px;
+    height: auto;
     width: 100%;
+}
+
+div.recHeader div.selecter {
+    width: 100%;
+    padding: 20px;
+}
+
+div.recHeader a {
+    color: var(--navlink-color);
+    font-family: 'Rubik', sans-serif;
+    font-size: 25px;
+}
+
+div.recHeader form {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 15px;
+}
+
+form input {
+    background-color:#FFFFFF;
+    border:solid 2px var(--navlink-color);
+    font-size: 18px;
+    color:#000000;
+    font-weight:bold;
+    padding-top:4px;
+    padding-bottom:4px;
+    padding-right:15px;
+    padding-left:15px;
+    -moz-border-radius:0px;
+    -webkit-border-radius:0px;
+    border-radius:0px;
+}
+
+div.recHeader div.button {
+    padding: 8px;
+    border: 3px solid var(--navlink-color);
+    cursor: pointer;
+}
+
+div.recHeader div.button:hover {
+    background-color: rgba(146, 190, 226, 0.377);
+}
+
+div.recHeader label {
+    color: var(--navlink-color);
+    font-family: 'Rubik', sans-serif;
+    font-size: 18px;
+    padding-right: 8px;
+}
+
+div.recHeader #genreDataList {
+    display: block;
 }
 
 div.recBody {
@@ -557,35 +609,61 @@ div.recBody {
 
 /* Card */
 
+div.card .hidden {
+    height: 0!important;
+    display: none;
+}
+
 div.card {
     position: relative;
-    padding: 5px;
-    margin: 25px;
-    width: 300px;
-    height: 400px;
+    margin: 10px;
+    width: 390px;
+    height: 350px;
     border: 7px solid var(--navlink-color);
     border-radius: 30px;
     box-shadow: 6px 6px 15px black;
+    transition: width 1s, height 1s;
+}
+
+div.card:hover {
+    transform: scale(1.05);
+    /* height: 550px; */
+    /* z-index: 10; */
 }
 
 div.card img {
-    width: 190px;
+    width: 100%;
     height: 190px;
     display: block;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 0px;
 
-    border: 5px solid var(--navlink-color);
+    border: 0px solid var(--navlink-color);
+    border-radius: 23px 23px 0px 0px;
+
+    cursor: pointer;
+}
+
+div.card div.platforms {
+    padding: 0px 15px;
+    padding-top: 15px;
+}
+
+div.card div.platforms i {
+    font-size: 20px;
+    color: var(--navlink-color);
+    margin-right: 6px;
 }
 
 div.card a.title {
-    text-align: center;
+    text-align: left;
     display: block;
     height: 25%;
-    margin: 30px 0;
+    margin: 8px 0;
+    margin-left: 15px;
 
     font-family: 'Rubik', sans-serif;
-    font-size: 35px;
+    font-size: 28px;
     font-weight: 900;
     color: var(--header-title-color);
     /* -webkit-text-stroke: 1px black; */
@@ -622,4 +700,10 @@ div.readingline {
     border: 3px solid #fff300;
     border-radius: 5px;
     background-color: black;
+    pointer-events: none;
+}
+
+div.readingline.hidden {
+    height: 0!important;
+    border: 0px solid #fff300;
 }

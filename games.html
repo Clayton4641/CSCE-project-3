@@ -10,7 +10,9 @@
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://kit.fontawesome.com/60e6ba57b1.js" crossorigin="anonymous"></script>
     <script src="js/code.js"></script>
+    <script src="js/readingLine.js"></script>
 
     <!-- Setup -->
     <title>Gamer Gathering</title>
@@ -28,14 +30,38 @@
     </script>
 
     <!-- Header -->
-    <div class="recHeader" style="height: 100vh;">
+    <div class="recHeader">
         <span class="noselect header">Your Game Reccomendations</span>
+        <div class="selecter">
+            <a>Advanced Search</a>
+            <form id="search" action="">
+                <div>
+                    <label>Name</label>
+                    <input id="name" type="text">
+                </div>
+                
+                <div>
+                    <label for="genre">Genre</label>
+                    <input list="genreDataList" type="text" id="genre">
+                    <datalist id="genreDataList">
+                    </datalist>
+                </div>
+
+                <div class="button" onclick="newSearch()">
+                    <a>Search</a>
+                </div>
+            </form>
+        </div>
     </div>
 
     <!-- Body -->
     <div class="recBody" id="recBody">
         <!-- <div class="card">
-            <img class="image" src="https://via.placeholder.com/150"></img>
+            <img class="image" src="https://via.placeholder.com/500"></img>
+            <div class="platforms">
+                <i class="fab fa-windows"></i>
+                <i class="fab fa-windows"></i>
+            </div>
             <a class="title">
                 Fortnite
             </a>
@@ -44,7 +70,24 @@
                 <a class="genre">Indie</a>
                 <a class="genre">RPG</a>
             </div>
+            <div class="info hidden">
+                <div class="year">
+                    2020
+                </div>
+            </div>
         </div> -->
     </div>
+
+    <!-- Reading line -->
+    <div class="readingline hidden" id="readingline"></div>
+    <script>
+        let line = document.getElementById('readingline');
+
+        const onMouseMove = (e) =>{
+        line.style.top = e.pageY + 'px';
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+    </script>
 </body>
 </html>

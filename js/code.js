@@ -1,56 +1,113 @@
-$(document).ready(function() {
-    var search,
-    url
+function createCards(data) {
+    for(var i=0;i<data.results.length;++i) {
+        createCard(data.results[i]);
+    }
+}
 
-    url = 'https://api.rawg.io/api/games'
+function createCard(data) {
+    var card = document.createElement("DIV");
+    card.className = "card";
+
+    var img = document.createElement("IMG");
+    img.src = data.background_image;
+    img.onclick = function() {
+        window.open(data.stores[0].url_en, "_blank");
+    }
+
+    var platforms = document.createElement("DIV");
+    platforms.className = "platforms"
+
+    var platDict = {
+        "PC": 0,
+        "Xbox": 0,
+        "PlayStation": 0,
+        "Nintendo": 0,
+        "macOS": 0
+    };
+
+    var iconDict = {
+        "PC": "fab fa-windows",
+        "Xbox": "fab fa-xbox",
+        "PlayStation": "fab fa-playstation",
+        "Nintendo": "fas fa-gamepad",
+        "macOS": "fab fa-apple"
+    }
+
+    for(var i=0; i<data.platforms.length; ++i) {
+        var platIcon = document.createElement("I");
+
+        var n = String(data.platforms[i].platform.name);
+        for(var key in platDict) {
+            if(n.includes(key) && platDict[key] == 0) {
+                platDict[key] = 1;
+                platIcon.className = iconDict[key];
+                platforms.appendChild(platIcon);
+            } 
+        }
+    }
+
+    var title = document.createElement("A");
+    title.className = "title";
+    title.innerHTML = data.name;
+
+    var genre = document.createElement("DIV");
+    genre.className = "genre";
+
+    for(var i=0; i<3; ++i) {
+        if(i >= data.genres.length)
+            break;
+        var g = document.createElement("A");
+        g.className = "genre";
+        g.innerHTML = data.genres[i].name;
+
+        genre.appendChild(g);
+    }
+
+    card.appendChild(img);
+    card.appendChild(platforms);
+    card.appendChild(title);
+    card.appendChild(genre);
+
+    var body = document.getElementById("recBody");
+    body.appendChild(card);
+}
+
+function search() {
+    var search, url, genre, name;
+
+    name = $("#name").val();
+    genre = $("#genre").val();
+    console.log(name);
+    console.log(genre);
+    url = 'https://api.rawg.io/api/games';
+
+    var dat = 'page_size=40;';
+    if(name != '') {
+        dat += 'search='+name+';';
+    }
+    if(genre != '') {
+        dat += 'genres='+String(genre).toLowerCase()+';';
+    }
 
     $.ajax({
     method:'GET',
     url:url,
-    data : `search "${search}"; fields *;`,
+    data : dat,
     success:function(data){
         console.log(data)
         $("#btn").attr("disabled", false)
         createCards(data)
     }
-    })
-  
-    function createCards(data) {
-        for(var i=0;i<data.results.length;++i) {
-            createCard(data.results[i]);
-        }
-    }
+    });
+}
 
-    function createCard(data) {
-        var card = document.createElement("DIV");
-        card.className = "card";
+$(document).ready(function() {
+    search();
+});
 
-        var img = document.createElement("IMG");
-        img.src = data.background_image;
+function newSearch() {
+    var body = document.getElementById("recBody");
+    body.innerHTML = '';
 
-        var title = document.createElement("A");
-        title.className = "title";
-        title.innerHTML = data.name;
-
-        var genre = document.createElement("DIV");
-        genre.className = "genre";
-
-        for(var i=0; i<3; ++i) {
-            if(i >= data.genres.length)
-                break;
-            var g1 = document.createElement("A");
-            g1.className = "genre";
-            g1.innerHTML = data.genres[i].name;
-
-            genre.appendChild(g1);
-        }
-
-        card.appendChild(img);
-        card.appendChild(title);
-        card.appendChild(genre);
-
-        var body = document.getElementById("recBody");
-        body.appendChild(card);
-    }
-  
-  })
+    search();
+}
