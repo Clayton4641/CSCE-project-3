@@ -593,7 +593,7 @@ div.recHeader label {
 }
 
 div.recHeader #genreDataList {
-    display: block;
+    /* display: block; */
 }
 
 div.recBody {
@@ -686,6 +686,59 @@ div.card div.genre a {
     -webkit-text-stroke: 0px;
     padding: 7px;
     border-radius: 10px;
+}
+
+/* Survey */
+div.survey {
+    position: fixed;
+    top: 0;
+    z-index: 9999999;
+    width: 100%;
+    height: 100%;
+}
+
+div.survey div.dim {
+    width: 100%;
+    height: 100%;
+    background-color: #3f3f3f9a;
+}
+
+div.surveyBody {
+    position: fixed;
+    width: 300px;
+    height: 450px;
+    background-color: var(--header-bg-color);
+    border: 10px solid var(--navlink-color);
+    border-radius: 20px;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+
+    padding: 15px;
+
+    font-family: 'Rubik', sans-serif;
+    color: var(--navlink-color);
+}
+
+div.surveyBody > h1 {
+    text-align: center;
+    font-size: 30px;
+}
+
+div.surveyBody div.button {
+    width: 58px;
+    margin-top: 78px;
+    padding: 8px;
+    border: 3px solid var(--navlink-color);
+    cursor: pointer;
+}
+
+div.surveyBody div.button:hover {
+    background-color: rgba(146, 190, 226, 0.377);
+}
+
+div.survey.hidden {
+    display: none;
 }
 
 /* Reading Line */

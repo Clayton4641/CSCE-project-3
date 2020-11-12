@@ -6,6 +6,15 @@
 
 var RLshow = false;
 
+$(document).ready(function() {
+    var x = document.cookie;
+    console.log(x);
+    if(!x.includes("firstVisit=true")) {
+        var survey = document.getElementById("survey");
+        survey.classList.remove("hidden");
+    }
+});
+
 function showRL() {
     RLshow = !RLshow;
 
@@ -15,4 +24,11 @@ function showRL() {
     } else {
         line.classList.add("hidden");
     }
+}
+
+function hideSurvey() {
+    var survey = document.getElementById("survey");
+    survey.classList.add("hidden");
+
+    document.cookie = "firstVisit=true;";
 }

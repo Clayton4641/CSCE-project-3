@@ -1,3 +1,16 @@
+var nextUrl = "";
+
+$(document).ready(function() {
+    search();
+    getGenres();
+});
+
+window.onscroll = function(ev) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        getNext();
+    }
+};
+
 function createCards(data) {
     for(var i=0;i<data.results.length;++i) {
         createCard(data.results[i]);
@@ -95,19 +108,60 @@ function search() {
     data : dat,
     success:function(data){
         console.log(data)
-        $("#btn").attr("disabled", false)
         createCards(data)
+
+        nextUrl = data.next;
     }
     });
 }
 
-$(document).ready(function() {
-    search();
-});
+function getNext() {
+    var search, url, genre, name;
+
+    name = $("#name").val();
+    genre = $("#genre").val();
+    console.log(name);
+    console.log(genre);
+    url = nextUrl;
+
+    $.ajax({
+    method:'GET',
+    url:url,
+    success:function(data){
+        console.log(data)
+        createCards(data)
+
+        nextUrl = data.next;
+    }
+    });
+}
 
 function newSearch() {
     var body = document.getElementById("recBody");
     body.innerHTML = '';
 
     search();
+}
+
+function assignGenres(data) {
+    var genreDataList = document.getElementById("genreDataList");
+    for(var i=0; i<data.length; ++i) {
+        var opt = document.createElement("OPTION");
+        opt.value = data[i].name;
+        genreDataList.appendChild(opt);
+    }
+}
+
+function getGenres() {
+    url = 'https://api.rawg.io/api/genres';
+
+    $.ajax({
+    method:'GET',
+    url:url,
+    data: 'page_size=40;',
+    success:function(data){
+        console.log(data)
+        assignGenres(data.results)
+    }
+    });
 }

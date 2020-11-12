@@ -9,7 +9,6 @@ function makeAccessibilityCookie(){
     Cookies.set('Accessibility', data, { expires: 9999 });
 }
 
-
 // Method to make an accessibility cookie
 // Input: Bool for colorblindness, Bool for vision impairment
 function makeAccessibilityCookie(colorBlindOption, visionImpairmentOption){
