@@ -1,10 +1,5 @@
 var nextUrl = "";
 
-$(document).ready(function() {
-    search();
-    getGenres();
-});
-
 window.onscroll = function(ev) {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
         getNext();
@@ -162,6 +157,29 @@ function getGenres() {
     success:function(data){
         console.log(data)
         assignGenres(data.results)
+    }
+    });
+}
+
+function topGames(){
+    let url = "https://api.rawg.io/api/games?dates=";
+    var m = new Date();
+    var year = m.getUTCFullYear();
+    var month = (m.getUTCMonth()+1);
+    var day = m.getUTCDate();
+    var dateString = m.getUTCFullYear() +"-"+ (m.getUTCMonth()+1) +"-"+ m.getUTCDate();
+
+    url += year +"-"+ month +"-"+ (day-1) +","+ year +"-"+ month +"-"+ (day) + "&ordering=-added";
+
+    $.ajax({
+    method:'GET',
+    url:url,
+    data : "page_size=5;",
+    success:function(data){
+        console.log(data)
+        createCards(data)
+
+        nextUrl = data.next;
     }
     });
 }
