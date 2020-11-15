@@ -10,6 +10,8 @@
     
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://kit.fontawesome.com/60e6ba57b1.js" crossorigin="anonymous"></script>
+    <script src="js/code.js"></script>
     <script src="js/readingLine.js"></script>
 
     <!-- Setup -->
@@ -75,7 +77,17 @@
                     that is personalized just for you!
                 </p>
             </div>
-            <img src="imgs/gameRecImg.png">
+            <div class="topRecs">
+                <a onclick="addIndex()">
+                    +
+                </a>
+                <a onclick="subIndex()">
+                    -
+                </a>
+                <div class="topcontainer" id="topRec">
+
+                </div>
+            </div>
         </div>
         <div class="waveDivider" id="lightBlue">
             <svg class="wave-qsoVIt" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">

@@ -1,8 +1,15 @@
+var nextUrl = "";
+
 $(document).ready(function() {
-    topGames();
+    search();
+    getGenres();
 });
 
-var degOffset = 0, degInc = 72, dist = 34;
+window.onscroll = function(ev) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        getNext();
+    }
+};
 
 function createCards(data) {
     for(var i=0;i<data.results.length;++i) {
@@ -89,52 +96,87 @@ function createCard(data) {
     card.appendChild(cardfront);
     card.appendChild(cardback);
 
-    // card.style.transform = "translate3d(" + "000px" + ",0,0) rotateY(" + 0 + "deg)";
-    // card.style.position = "absolute";
-    degOffset += degInc;
-
-    var body = document.getElementById("topRec");
+    var body = document.getElementById("recBody");
     body.appendChild(card);
 }
 
-function topGames(){
-    let url = "https://api.rawg.io/api/games?dates=";
-    var m = new Date();
-    var year = m.getUTCFullYear();
-    var month = (m.getUTCMonth()+1);
-    var day = m.getUTCDate();
-    var dateString = m.getUTCFullYear() +"-"+ (m.getUTCMonth()+1) +"-"+ m.getUTCDate();
+function search() {
+    var search, url, genre, name;
 
-    url += year +"-"+ month +"-"+ (day-2) +","+ year +"-"+ month +"-"+ (day-1) + "&ordering=-added";
-    console.log(url);
+    name = $("#name").val();
+    genre = $("#genre").val();
+    console.log(name);
+    console.log(genre);
+    url = 'https://api.rawg.io/api/games';
+
+    var dat = 'page_size=40;';
+    if(name != '') {
+        dat += 'search='+name+';';
+    }
+    if(genre != '') {
+        dat += 'genres='+String(genre).toLowerCase()+';';
+    }
+
     $.ajax({
     method:'GET',
     url:url,
-    data : "page_size=5;",
+    data : dat,
     success:function(data){
-        console.log(data);
-        createCards(data);
+        console.log(data)
+        createCards(data)
+
+        nextUrl = data.next;
     }
     });
 }
 
-var scrollIndex = 0;
+function getNext() {
+    var search, url, genre, name;
 
-function addIndex() {
-    scroll(1);
+    name = $("#name").val();
+    genre = $("#genre").val();
+    console.log(name);
+    console.log(genre);
+    url = nextUrl;
+
+    $.ajax({
+    method:'GET',
+    url:url,
+    success:function(data){
+        console.log(data)
+        createCards(data)
+
+        nextUrl = data.next;
+    }
+    });
 }
 
-function subIndex() {
-    scroll(-1);
+function newSearch() {
+    var body = document.getElementById("recBody");
+    body.innerHTML = '';
+
+    search();
 }
 
-function scroll(a){
-    scrollIndex += a;
-    if(scrollIndex < 0) 
-        scrollIndex = 0;
-    if(scrollIndex > 4)
-        scrollIndex = 4;
+function assignGenres(data) {
+    var genreDataList = document.getElementById("genreDataList");
+    for(var i=0; i<data.length; ++i) {
+        var opt = document.createElement("OPTION");
+        opt.value = data[i].name;
+        genreDataList.appendChild(opt);
+    }
+}
 
-    var recCont = document.getElementById("topRec");
-    recCont.style.transform = "translateX(" + -scrollIndex*400 + "px)";
+function getGenres() {
+    url = 'https://api.rawg.io/api/genres';
+
+    $.ajax({
+    method:'GET',
+    url:url,
+    data: 'page_size=40;',
+    success:function(data){
+        console.log(data)
+        assignGenres(data.results)
+    }
+    });
 }

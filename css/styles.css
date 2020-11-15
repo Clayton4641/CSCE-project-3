@@ -255,7 +255,7 @@ div.landingHeader span.header .outline {
                 7px 7px var(--navlink-color);
 }
 
-div.headerBody div.rotatingIcons {
+div.rotatingIcons {
     position: absolute;
     transform: translateZ(-65px);
     transform-style: preserve-3d;
@@ -266,7 +266,7 @@ div.headerBody div.rotatingIcons {
     animation: rotateIcons 15s linear infinite;
 } 
 
-div.headerBody div.floatingIcons {
+div.floatingIcons {
     position: absolute;
     transform: translateZ(-65px);
     transform-style: preserve-3d;
@@ -526,6 +526,25 @@ div.headerBody p.const {
     margin: auto;
     width: 100%;
     left: 0;
+}
+
+/* Top 5 Rec */
+
+div.topRecs {
+    overflow: hidden;
+    position: relative;
+    
+    width: 40%;
+    height: 100%;
+}
+
+div.topcontainer {
+    position: absolute;
+    width: 300%;
+    top: 20%;
+    display: flex;
+
+    transition: transform 1s;
 }
 
 /* Recommend Pages */
