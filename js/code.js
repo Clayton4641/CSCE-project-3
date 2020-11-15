@@ -1,10 +1,15 @@
 var nextUrl = "";
 
-window.onscroll = function(ev) {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        getNext();
-    }
-};
+$(document).ready(function() {
+    search();
+    getGenres();
+});
+
+// window.onscroll = function(ev) {
+//     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+//         getNext();
+//     }
+// };
 
 function createCards(data) {
     for(var i=0;i<data.results.length;++i) {
@@ -15,6 +20,16 @@ function createCards(data) {
 function createCard(data) {
     var card = document.createElement("DIV");
     card.className = "card";
+
+    var cardfront = document.createElement("DIV");
+    cardfront.className = "cardfront";
+    var cardback = document.createElement("DIV");
+    cardback.className = "cardback";
+
+    var cardYT = document.createElement("DIV");
+    cardYT.className = "youtube";
+    var cardT = document.createElement("DIV");
+    cardT.className = "twitch";
 
     var img = document.createElement("IMG");
     img.src = data.background_image;
@@ -71,10 +86,28 @@ function createCard(data) {
         genre.appendChild(g);
     }
 
-    card.appendChild(img);
-    card.appendChild(platforms);
-    card.appendChild(title);
-    card.appendChild(genre);
+    cardfront.appendChild(img);
+    cardfront.appendChild(platforms);
+    cardfront.appendChild(title);
+    cardfront.appendChild(genre);
+
+
+    //Back of the card
+    var dataYT, dataT;
+
+    card.addEventListener("click", 
+    function() {
+        card.classList.toggle("isflipped");
+        //getting youtube and twitch data
+        dataYT = getYoutube(data.name, cardback);
+        dataT = getTwitch(data.name, cardback);
+    });
+
+    cardback.appendChild(cardYT);
+    cardback.appendChild(cardT);
+
+    card.appendChild(cardfront);
+    card.appendChild(cardback);
 
     var body = document.getElementById("recBody");
     body.appendChild(card);
@@ -89,7 +122,7 @@ function search() {
     console.log(genre);
     url = 'https://api.rawg.io/api/games';
 
-    var dat = 'page_size=40;';
+    var dat = 'page_size=1;';
     if(name != '') {
         dat += 'search='+name+';';
     }
@@ -161,108 +194,58 @@ function getGenres() {
     });
 }
 
-function topGames(){
-    let url = "https://api.rawg.io/api/games?dates=";
-    var m = new Date();
-    var year = m.getUTCFullYear();
-    var month = (m.getUTCMonth()+1);
-    var day = m.getUTCDate();
-    var dateString = m.getUTCFullYear() +"-"+ (m.getUTCMonth()+1) +"-"+ m.getUTCDate();
+//--------------------------------------------------
 
-    url += year +"-"+ month +"-"+ (day-2) +","+ year +"-"+ month +"-"+ (day-1) + "&ordering=-added";
-    console.log(url);
+
+//This function called the youtube api and updates the back of the card with youtube videos of the game
+// inputs:
+// name - name of the game
+// cardback - used to update the back of the card
+function getYoutube(name, cardback){
+    API_KEY = "AIzaSyBcjlVIXezOVg54hV7_ZWrksbgg3Q1kjDE",
+    url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&part=snippet&maxResults=5&type=video&q=${name}`;
     $.ajax({
-    method:'GET',
-    url:url,
-    data : "page_size=5;",
-    success:function(data){
-        console.log(data)
-        createCards(data)
-
-        nextUrl = data.next;
-    }
+        method:'GET',
+        url:url,
+        success:function(data){
+          console.log(data)
+          //Display youtube data
+            for(var i = 0; i < 1; i++){
+                var video = document.createElement("IFRAME");
+                video.src = `http://www.youtube.com/embed/${data.items[i].id.videoId}`;
+                cardback.appendChild(video);
+            }
+        }
     });
 }
 
-function createCard(data) {
-    var card = document.createElement("DIV");
-    card.className = "card";
-
-    var img = document.createElement("IMG");
-    img.src = data.background_image;
-    img.onclick = function() {
-        window.open(data.stores[0].url_en, "_blank");
-    }
-
-    var platforms = document.createElement("DIV");
-    platforms.className = "platforms"
-
-    var platDict = {
-        "PC": 0,
-        "Xbox": 0,
-        "PlayStation": 0,
-        "Nintendo": 0,
-        "macOS": 0
-    };
-
-    var iconDict = {
-        "PC": "fab fa-windows",
-        "Xbox": "fab fa-xbox",
-        "PlayStation": "fab fa-playstation",
-        "Nintendo": "fas fa-gamepad",
-        "macOS": "fab fa-apple"
-    }
-
-    for(var i=0; i<data.platforms.length; ++i) {
-        var platIcon = document.createElement("I");
-
-        var n = String(data.platforms[i].platform.name);
-        for(var key in platDict) {
-            if(n.includes(key) && platDict[key] == 0) {
-                platDict[key] = 1;
-                platIcon.className = iconDict[key];
-                platforms.appendChild(platIcon);
-            }
+//This function called the twitch api and updates the back of the card with twitch streams of the game
+// inputs:
+// name - name of the game
+// cardback - used to update the back of the card
+function getTwitch(name, cardback){
+    API_KEY = "24nahn5xlcv8ulpesnf3ux54kun9j3",
+    url = `https://api.twitch.tv/kraken/search/streams?first=5&query=${name}`;
+    $.ajax({
+        method:'GET',
+        url:url,
+        headers: {
+            "Accept": "application/vnd.twitchtv.v5+json",
+            "Client-ID": `${API_KEY}`
+          },
+        success:function(data){
+          console.log(data)
+          //Display twitch data
+          for(var i = 0; i < 1; i++){
+                var stream = document.createElement("IFRAME");
+                //bruh idk what to do with this, it aint workin
+                stream.src = `https://player.twitch.tv/?channel=${data.streams[i].channel.name}&html5&parent=file:///C:/Users/casua/OneDrive/Documents/CSCE315/project3/test/games.html&muted=true&autoplay=false`;
+                stream.frameborder="0";
+                stream.allowfullscreen="true";
+                stream.scrolling="no";
+                cardback.appendChild(stream);
+          }
         }
-    }
-
-    var title = document.createElement("A");
-    title.className = "title";
-    title.innerHTML = data.name;
-
-    var genre = document.createElement("DIV");
-    genre.className = "genre";
-
-    for(var i=0; i<3; ++i) {
-        if(i >= data.genres.length)
-            break;
-        var g = document.createElement("A");
-        g.className = "genre";
-        g.innerHTML = data.genres[i].name;
-
-        genre.appendChild(g);
-    }
-
-    card.appendChild(img);
-    card.appendChild(platforms);
-    card.appendChild(title);
-    card.appendChild(genre);
-
-    var body = document.getElementById("recBody");
-    body.appendChild(card);
+    });
 }
 
-function plusDivs(n) {
-  showDivs(slideIndex += n);
-}
-
-function showDivs(n) {
-  var i;
-  var x = document.getElementsByClassName("recBody");
-  if (n > x.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = x.length} ;
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";
-  }
-  x[slideIndex-1].style.display = "block";
-}
