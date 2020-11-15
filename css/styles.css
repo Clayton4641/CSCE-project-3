@@ -624,7 +624,7 @@ div.card {
     box-shadow: 6px 6px 15px black;
     transition: width 1s, height 1s, transform 1s;
     transform-style: preserve-3d;
-
+    background-color: var(--header-bg-color);
 }
 
 div.card:hover {
