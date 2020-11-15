@@ -627,7 +627,7 @@ div.card {
     background-color: var(--header-bg-color);
 }
 
-div.card:hover {
+div.card:hover, div.card.isflipped:hover {
     /* transform: scale(1.05); */
 }
 
@@ -654,6 +654,8 @@ div.cardfront, div.cardback {
 div.cardback {
     transform: rotateY(180deg);
 }
+
+/* Card Front */
 
 div.card img {
     width: 100%;
@@ -710,6 +712,22 @@ div.card div.genre a {
     -webkit-text-stroke: 0px;
     padding: 7px;
     border-radius: 10px;
+}
+
+/* Card Back */
+
+div.card div.youtube {
+    width: 100%;
+    height: 50%;
+    background-color: black;
+    border-radius: 20px;
+}
+
+div.card div.twitch {
+    width: 100%;
+    height: 50%;
+    background-color: grey;
+    border-radius: 20px;
 }
 
 /* Survey */
