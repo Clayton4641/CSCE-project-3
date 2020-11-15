@@ -21,6 +21,11 @@ function createCard(data) {
     var card = document.createElement("DIV");
     card.className = "card";
 
+    var cardfront = document.createElement("DIV");
+    cardfront.className = "cardfront";
+    var cardback = document.createElement("DIV");
+    cardback.className = "cardback";
+
     var img = document.createElement("IMG");
     img.src = data.background_image;
     img.onclick = function() {
@@ -76,10 +81,20 @@ function createCard(data) {
         genre.appendChild(g);
     }
 
-    card.appendChild(img);
-    card.appendChild(platforms);
-    card.appendChild(title);
-    card.appendChild(genre);
+    cardfront.appendChild(img);
+    cardfront.appendChild(platforms);
+    cardfront.appendChild(title);
+    cardfront.appendChild(genre);
+
+    card.addEventListener("click", 
+    function() {
+        card.classList.toggle("isflipped");
+        // console.log("HI");
+        // alert("HI");
+    });
+
+    card.appendChild(cardfront);
+    card.appendChild(cardback);
 
     var body = document.getElementById("recBody");
     body.appendChild(card);

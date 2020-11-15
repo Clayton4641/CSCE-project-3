@@ -56,26 +56,56 @@
 
     <!-- Body -->
     <div class="recBody" id="recBody">
-        <!-- <div class="card">
-            <img class="image" src="https://via.placeholder.com/500"></img>
-            <div class="platforms">
-                <i class="fab fa-windows"></i>
-                <i class="fab fa-windows"></i>
-            </div>
-            <a class="title">
-                Fortnite
-            </a>
-            <div class="genre">
-                <a class="genre">Action</a>
-                <a class="genre">Indie</a>
-                <a class="genre">RPG</a>
-            </div>
-            <div class="info hidden">
-                <div class="year">
-                    2020
+        <div class="card" id="cman">
+            <div class="cardfront">
+                <img class="image" src="https://via.placeholder.com/500"></img>
+                <div class="platforms">
+                    <i class="fab fa-windows"></i>
+                    <i class="fab fa-windows"></i>
+                </div>
+                <a class="title">
+                    Fortnite
+                </a>
+                <div class="genre">
+                    <a class="genre">Action</a>
+                    <a class="genre">Indie</a>
+                    <a class="genre">RPG</a>
+                </div>
+                <div class="info hidden">
+                    <div class="year">
+                        2020
+                    </div>
                 </div>
             </div>
-        </div> -->
+            <div class="cardback">
+                <img class="image" src="https://via.placeholder.com/500"></img>
+                <div class="platforms">
+                    <i class="fab fa-apple"></i>
+                    <i class="fab fa-windows"></i>
+                </div>
+                <a class="title">
+                    FIFA 2026
+                </a>
+                <div class="genre">
+                    <a class="genre">Sport</a>
+                    <a class="genre">Overfunded</a>
+                </div>
+                <div class="info hidden">
+                    <div class="year">
+                        2020
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var card = document.getElementById("cman");
+            card.addEventListener("click", 
+            function() {
+                card.classList.toggle("isflipped");
+                // console.log("HI");
+                // alert("HI");
+            });
+        </script>
     </div>
 
     <!-- Reading line -->
