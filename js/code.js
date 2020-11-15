@@ -169,8 +169,8 @@ function topGames(){
     var day = m.getUTCDate();
     var dateString = m.getUTCFullYear() +"-"+ (m.getUTCMonth()+1) +"-"+ m.getUTCDate();
 
-    url += year +"-"+ month +"-"+ (day-1) +","+ year +"-"+ month +"-"+ (day) + "&ordering=-added";
-
+    url += year +"-"+ month +"-"+ (day-2) +","+ year +"-"+ month +"-"+ (day-1) + "&ordering=-added";
+    console.log(url);
     $.ajax({
     method:'GET',
     url:url,
@@ -182,4 +182,87 @@ function topGames(){
         nextUrl = data.next;
     }
     });
+}
+
+function createCard(data) {
+    var card = document.createElement("DIV");
+    card.className = "card";
+
+    var img = document.createElement("IMG");
+    img.src = data.background_image;
+    img.onclick = function() {
+        window.open(data.stores[0].url_en, "_blank");
+    }
+
+    var platforms = document.createElement("DIV");
+    platforms.className = "platforms"
+
+    var platDict = {
+        "PC": 0,
+        "Xbox": 0,
+        "PlayStation": 0,
+        "Nintendo": 0,
+        "macOS": 0
+    };
+
+    var iconDict = {
+        "PC": "fab fa-windows",
+        "Xbox": "fab fa-xbox",
+        "PlayStation": "fab fa-playstation",
+        "Nintendo": "fas fa-gamepad",
+        "macOS": "fab fa-apple"
+    }
+
+    for(var i=0; i<data.platforms.length; ++i) {
+        var platIcon = document.createElement("I");
+
+        var n = String(data.platforms[i].platform.name);
+        for(var key in platDict) {
+            if(n.includes(key) && platDict[key] == 0) {
+                platDict[key] = 1;
+                platIcon.className = iconDict[key];
+                platforms.appendChild(platIcon);
+            }
+        }
+    }
+
+    var title = document.createElement("A");
+    title.className = "title";
+    title.innerHTML = data.name;
+
+    var genre = document.createElement("DIV");
+    genre.className = "genre";
+
+    for(var i=0; i<3; ++i) {
+        if(i >= data.genres.length)
+            break;
+        var g = document.createElement("A");
+        g.className = "genre";
+        g.innerHTML = data.genres[i].name;
+
+        genre.appendChild(g);
+    }
+
+    card.appendChild(img);
+    card.appendChild(platforms);
+    card.appendChild(title);
+    card.appendChild(genre);
+
+    var body = document.getElementById("recBody");
+    body.appendChild(card);
+}
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("recBody");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length} ;
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  x[slideIndex-1].style.display = "block";
 }
