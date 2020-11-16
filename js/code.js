@@ -105,7 +105,7 @@ function topGames(){
     var day = m.getUTCDate();
     var dateString = m.getUTCFullYear() +"-"+ (m.getUTCMonth()+1) +"-"+ m.getUTCDate();
 
-    url += year +"-"+ month +"-"+ (day-2) +","+ year +"-"+ month +"-"+ (day-1) + "&ordering=-added";
+    url += year +"-"+ month +"-01,"+ year +"-"+ month +"-"+ (day-1) + "&ordering=-added";
     console.log(url);
     $.ajax({
     method:'GET',
@@ -128,6 +128,8 @@ function subIndex() {
     scroll(-1);
 }
 
+var scrollOffset = 10;
+
 function scroll(a){
     scrollIndex += a;
     if(scrollIndex < 0) 
@@ -136,5 +138,15 @@ function scroll(a){
         scrollIndex = 4;
 
     var recCont = document.getElementById("topRec");
-    recCont.style.transform = "translateX(" + -scrollIndex*400 + "px)";
+    recCont.style.transform = "translateX(" + ((-scrollIndex*455)+scrollOffset) + "px)";
+
+    var btns = document.getElementsByClassName("btn");
+    if(scrollIndex == 0){
+        btns[1].style.color = "grey";
+    } else if (scrollIndex == 4) {
+        btns[0].style.color = "grey";
+    } else {
+        btns[0].style.color = "black";
+        btns[1].style.color = "black";
+    }
 }

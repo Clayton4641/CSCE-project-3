@@ -431,13 +431,13 @@ div.waveDivider#darkBlue {
 div.waveDivider {
     position: relative;
     width: 100%;
-    z-index: 2;
+    z-index: 0;
     height: 10rem;
     margin: auto;
 }
 
 div.waveDivider svg {
-    z-index: 2;
+    z-index: 0;
     color: currentColor;
 }
 
@@ -484,12 +484,13 @@ div.mainBody div.section {
 
 div.mainBody div.textBody {
     margin: auto;
-    width: 45%;
+    width: 35%;
     max-width: 25rem;
 }
 
 div.gameRecs {
     background-color: var(--navlink-color);
+    z-index: 999;
 }
 
 div.streamRecs {
@@ -534,17 +535,65 @@ div.topRecs {
     overflow: hidden;
     position: relative;
     
-    width: 40%;
-    height: 100%;
+    width: 480px;
+    height: 420px;
+
+    margin: auto;
 }
 
 div.topcontainer {
     position: absolute;
-    width: 300%;
-    top: 20%;
+    margin: auto;
+    top: 0; bottom: 0;
     display: flex;
+    flex-direction: row;
 
     transition: transform 1s;
+}
+
+div.topcontainer > .card {
+    margin: 25px;
+}
+
+div.topRecs a.btn{
+    z-index: 9999;
+    position: absolute;
+    cursor: pointer;
+
+    font-size: 25px;
+    top: 47%;
+}
+
+div.topRecs a.btn.right {
+    right: 0px;
+}
+
+div.topRecs span {
+    font-family: 'Dosis', sans-serif;
+    font-size: 20px;
+    position: absolute;
+}
+
+div.topRecs span.s1 {
+    bottom: 2px;
+    right: 10px;
+    transform: rotate(-4deg);
+}
+
+div.topRecs span.s2 {
+    top: 2px;
+    right: 10px;
+    transform: rotate(4deg);
+}
+
+div.topRecs img.svg1 {
+    position: absolute;
+    width: 60px;
+    z-index: 999;
+
+    transform: rotate(200deg);
+    bottom: 45px;
+    right: -55px;
 }
 
 /* Recommend Pages */
@@ -656,6 +705,7 @@ div.card > .cardfront {
 
 div.card.isflipped {
     transform: rotateY(180deg);
+    background: transparent;
 }
 
 div.card.isflipped:hover {
@@ -672,6 +722,7 @@ div.cardfront, div.cardback {
 
 div.cardback {
     transform: rotateY(180deg);
+    z-index: 999;
 }
 
 /* Card Front */
@@ -740,6 +791,7 @@ div.card div.youtube {
     height: 50%;
     background-color: black;
     border-radius: 20px;
+    z-index: 99999;
 }
 
 div.card div.twitch {
@@ -747,6 +799,7 @@ div.card div.twitch {
     height: 50%;
     background-color: grey;
     border-radius: 20px;
+    z-index: 99999;
 }
 
 /* Survey */

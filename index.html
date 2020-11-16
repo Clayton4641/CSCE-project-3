@@ -6,6 +6,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dosis&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     
     <!-- Scripts -->
@@ -78,15 +80,12 @@
                 </p>
             </div>
             <div class="topRecs">
-                <a onclick="addIndex()">
-                    +
-                </a>
-                <a onclick="subIndex()">
-                    -
-                </a>
-                <div class="topcontainer" id="topRec">
-
-                </div>
+                <div class="topcontainer" id="topRec" style="transform: translateX(10px);"></div>
+                <a class="btn left" onclick="addIndex()"> <i class="fas fa-arrow-left"></i> </a>
+                <a class="btn right" onclick="subIndex()" style="color: grey;"> <i class="fas fa-arrow-right"></i> </a>
+                <span class="s1 noselect">click the card!</span>
+                <span class="s2 noselect">click the card!</span>
+                <img src="imgs/right-drawn-arrow.svg" class="svg1" alt="click here!">
             </div>
         </div>
         <div class="waveDivider" id="lightBlue">
