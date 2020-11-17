@@ -93,18 +93,18 @@ function createCard(data) {
 
 
     //Back of the card
-    var dataYT, dataT, flipped = false;
+    var flipped = false;
 
     card.addEventListener("click", 
     function() {
         card.classList.toggle("isflipped");
-        //getting youtube and twitch data
-        if(flipped == false){
-            dataYT = getYoutube(data.name, cardback);
-            dataT = getTwitch(data.name, cardback);
+        //checks to see if the card as been flipped before, if not search twitch and youtube
+        if(flipped == false){ 
+            //getting youtube and twitch data
+            getYoutube(data.name, cardYT);
+            getTwitch(data.name, cardT);
             flipped = true;
         }
-
     });
 
     cardback.appendChild(cardYT);
@@ -198,31 +198,77 @@ function getGenres() {
     });
 }
 
-//--------------------------------------------------
+var YTindex = 0, Tindex = 0;
+
+function incYTIndex(inc) {
+    YTindex += inc;
+
+    // wrap around
+    if(YTindex == 5)
+        YTindex = 0;
+
+    var container = document.getElementById("ytcontainer");
+    container.style.left = (-395*YTindex)+"px";
+
+    console.log(container.style.left);
+}
+
+function incTIndex(inc) {
+    Tindex += inc;
+
+    var container = document.getElementById("tcontainer");
+    container.style.left = (-395*Tindex)+"px";
+
+    console.log(container.style.left);
+}
+
+
+//--------------------------------------------------------------------------------------------
 
 
 //This function called the youtube api and updates the back of the card with youtube videos of the game
 // inputs:
 // name - name of the game
-// cardback - used to update the back of the card
-function getYoutube(name, cardback){
+// container - used to update the back of the card with youtube videos
+function getYoutube(name, container){
     API_KEY = "AIzaSyBcjlVIXezOVg54hV7_ZWrksbgg3Q1kjDE",
     url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&part=snippet&maxResults=5&type=video&q=${name}`;
     $.ajax({
         method:'GET',
         url:url,
         success:function(data){
-          console.log(data)
-          //Display youtube data
+            console.log(data)
+            //Display youtube data
+            var videocontainer = document.createElement("DIV");
+            videocontainer.className = "vidcontainer";
+            videocontainer.id = "ytcontainer";
             for(var i = 0; i < data.items.length; i++){
-                //setting the limit
+                // setting the limit if there isn't already
                 if(i == 5)
                     break;
                 var video = document.createElement("IFRAME");
                 video.src = `http://www.youtube.com/embed/${data.items[i].id.videoId}`;
-                cardback.appendChild(video);
-
+                videocontainer.appendChild(video);
             }
+            container.appendChild(videocontainer);
+
+            //Left button
+            var btnLeft = document.createElement("A");
+            btnLeft.className = "btn left";
+            btnLeft.onclick = "incYTIndex(1)";
+            var fasL = document.createElement("I");
+            fasL.className = "fas fa-arrow-left";
+            btnLeft.appendChild(fasL);
+            container.appendChild(btnLeft);
+
+            //Right button
+            var btnRight = document.createElement("A");
+            btnRight.className = "btn right";
+            btnRight.onclick = "incYTIndex(-1)";
+            var fasR = document.createElement("I");
+            fasR.className = "fas fa-arrow-right";
+            btnRight.appendChild(fasR);
+            container.appendChild(btnRight);
         }
     });
 }
@@ -230,8 +276,8 @@ function getYoutube(name, cardback){
 //This function called the twitch api and updates the back of the card with twitch streams of the game
 // inputs:
 // name - name of the game
-// cardback - used to update the back of the card
-function getTwitch(name, cardback){
+// container - used to update the back of the card with twitch streams
+function getTwitch(name, container){
     API_KEY = "24nahn5xlcv8ulpesnf3ux54kun9j3",
     url = `https://api.twitch.tv/kraken/search/streams?first=5&query=${name}`;
     $.ajax({
@@ -245,25 +291,48 @@ function getTwitch(name, cardback){
             console.log(data)
             //Display twitch data
             if(data.streams.length != 0){ //check to see if there are streams
+                var streamcontainer = document.createElement("DIV");
+                streamcontainer.className = "strcontainer";
+                streamcontainer.id = "tcontainer";
                 for(var i = 0; i < data.streams.length; i++){
                     //setting the limit
-                        if(i == 5)
-                            break;
-                        //check if stream game and the game name match because are some that don't
-                        if(data.streams[i].game == name){
-                            var stream = document.createElement("IMG");
-                            // For charity streams???
-                            // checks to see the title of streams includes charity
-                            // if(data.streams[i].channel.status.includes("charity"))
-                            //     stream.className = "charity";
-                            stream.src = data.streams[i].preview.large;
-                            cardback.appendChild(stream);
-                        }
-                        
+                    if(i == 5)
+                        break;
+                    //check if stream game and the game name match because are some that don't
+                    if(data.streams[i].game == name){
+                        var stream = document.createElement("IMG");
+                        // For charity streams???
+                        // checks to see the title of streams includes charity
+                        // if(data.streams[i].channel.status.includes("charity"))
+                        //     stream.className = "charity";
+                        stream.src = data.streams[i].preview.large;
+                        streamcontainer.appendChild(stream);
+                    }  
                 }
+                container.appendChild(streamcontainer);
+
+                /*
+                //Left button
+                var btnLeft = document.createElement("A");
+                btnLeft.className = "btn left";
+                btnLeft.onclick = "incTIndex(1)";
+                var fasL = document.createElement("I");
+                fasL.className = "fas fa-arrow-left";
+                btnLeft.appendChild(fasL);
+                container.appendChild(btnLeft);
+
+                //Right button
+                var btnRight = document.createElement("A");
+                btnRight.className = "btn right";
+                btnRight.onclick = "incTIndex(-1)";
+                var fasR = document.createElement("I");
+                fasR.className = "fas fa-arrow-right";
+                btnRight.appendChild(fasR);
+                container.appendChild(btnRight);
+                */
             }
             else{ //if no streams avalible
-                cardback.appendChild("No streams :(")
+                container.appendChild("No streams :(");
             }
         }
     });
