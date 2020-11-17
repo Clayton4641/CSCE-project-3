@@ -14,6 +14,8 @@ function createCard(data) {
     var card = document.createElement("DIV");
     card.className = "card";
 
+    // Create Front of Card
+
     var cardfront = document.createElement("DIV");
     cardfront.className = "cardfront";
     var cardback = document.createElement("DIV");
@@ -21,9 +23,9 @@ function createCard(data) {
 
     var img = document.createElement("IMG");
     img.src = data.background_image;
-    img.onclick = function() {
-        window.open(data.stores[0].url_en, "_blank");
-    }
+    // img.onclick = function() {
+    //     window.open(data.stores[0].url_en, "_blank");
+    // }
 
     var platforms = document.createElement("DIV");
     platforms.className = "platforms"
@@ -33,8 +35,7 @@ function createCard(data) {
         "Xbox": 0,
         "PlayStation": 0,
         "Nintendo": 0,
-        "macOS": 0,
-        "Web": 0
+        "macOS": 0
     };
 
     var iconDict = {
@@ -42,22 +43,21 @@ function createCard(data) {
         "Xbox": "fab fa-xbox",
         "PlayStation": "fab fa-playstation",
         "Nintendo": "fas fa-gamepad",
-        "macOS": "fab fa-apple",
-        "Web": "fab fa-internet-explorer"
+        "macOS": "fab fa-apple"
     }
 
-    console.log(data.name);
+    if(data.platforms) {
+        for(var i=0; i<data.platforms.length; ++i) {
+            var platIcon = document.createElement("I");
 
-    for(var i=0; i<data.platforms.length; ++i) {
-        var platIcon = document.createElement("I");
-
-        var n = String(data.platforms[i].platform.name);
-        for(var key in platDict) {
-            if(n.includes(key) && platDict[key] == 0) {
-                platDict[key] = 1;
-                platIcon.className = iconDict[key];
-                platforms.appendChild(platIcon);
-            } 
+            var n = String(data.platforms[i].platform.name);
+            for(var key in platDict) {
+                if(n.includes(key) && platDict[key] == 0) {
+                    platDict[key] = 1;
+                    platIcon.className = iconDict[key];
+                    platforms.appendChild(platIcon);
+                } 
+            }
         }
     }
 
@@ -83,8 +83,93 @@ function createCard(data) {
     cardfront.appendChild(title);
     cardfront.appendChild(genre);
 
-    var i = 0, offset = 20;
+    // Create Back of Card
+    // YouTube
 
+    var youtube = document.createElement("DIV");
+    youtube.classList.add("youtube");
+
+    var yicon = document.createElement("I");
+    yicon.classList.add("fab"); 
+    yicon.classList.add("fa-youtube");
+
+    var yvidcontainer = document.createElement("DIV");
+    yvidcontainer.classList.add("vidcontainer");
+
+    var leftbtn = document.createElement("A");
+    leftbtn.classList.add("btn");
+    leftbtn.classList.add("left");
+    leftbtn.onclick = function() {incYTIndex(1, yvidcontainer);};
+    
+    var leftbtni = document.createElement("I");
+    leftbtni.classList.add("fas"); 
+    leftbtni.classList.add("fa-arrow-left");
+
+    leftbtn.appendChild(leftbtni);
+
+    var rightbtn = document.createElement("A");
+    rightbtn.classList.add("btn");
+    rightbtn.classList.add("right");
+    rightbtn.onclick = function() {incYTIndex(-1, yvidcontainer);};
+    
+    var rightbtni = document.createElement("I");
+    rightbtni.classList.add("fas");
+    rightbtni.classList.add("fa-arrow-right");
+
+    rightbtn.appendChild(rightbtni);
+
+    youtube.appendChild(yicon);
+    youtube.appendChild(yvidcontainer);
+    youtube.appendChild(leftbtn);
+    youtube.appendChild(rightbtn);
+
+    cardback.appendChild(youtube);
+
+    // Twitch
+
+    var twitch = document.createElement("DIV");
+    twitch.classList.add("twitch");
+
+    var ticon = document.createElement("I");
+    ticon.classList.add("fab"); 
+    ticon.classList.add("fa-twitch");
+
+    var tvidcontainer = document.createElement("DIV");
+    tvidcontainer.classList.add("vidcontainer");
+
+    leftbtn = document.createElement("A");
+    leftbtn.classList.add("btn");
+    leftbtn.classList.add("left");
+    leftbtn.onclick = function() {incTIndex(1, tvidcontainer);};
+    
+    leftbtni = document.createElement("I");
+    leftbtni.classList.add("fas");
+    leftbtni.classList.add("fa-arrow-left");
+
+    leftbtn.appendChild(leftbtni);
+
+    rightbtn = document.createElement("A");
+    rightbtn.classList.add("btn");
+    rightbtn.classList.add("right");
+    rightbtn.onclick = function() {incTIndex(-1, tvidcontainer);};
+    
+    rightbtni = document.createElement("I");
+    rightbtni.classList.add("fas");
+    rightbtni.classList.add("fa-arrow-right");
+
+    rightbtn.appendChild(rightbtni);
+
+
+    twitch.appendChild(ticon);
+    twitch.appendChild(tvidcontainer);
+    twitch.appendChild(leftbtn);
+    twitch.appendChild(rightbtn);
+
+    cardback.appendChild(twitch);
+
+    // Create Hover
+    var firstFlip = false;
+    var i = 0, offset = 20;
     var hover = document.createElement("DIV");
     hover.classList.add("cardhover");
     hover.onmouseover = function() {
@@ -110,21 +195,21 @@ function createCard(data) {
         if(i%2==0) {
             hover.style.right = "-15px";
             hover.style.left = null;
-            card.style.background = "transparent";
         } else {
             hover.style.left = "-15px";
             hover.style.right = "0";
-            card.style.background = "solid";
+        }
+
+        if(!firstFlip) {
+            firstFlip = true;
+            getYoutube(data.name, yvidcontainer);
+            getTwitch(data.name, tvidcontainer);
         }
     }
 
     card.appendChild(hover);
     card.appendChild(cardfront);
     card.appendChild(cardback);
-
-    // card.style.transform = "translate3d(" + "000px" + ",0,0) rotateY(" + 0 + "deg)";
-    // card.style.position = "absolute";
-    degOffset += degInc;
 
     var body = document.getElementById("topRec");
     body.appendChild(card);
@@ -161,7 +246,7 @@ function subIndex() {
     scroll(-1);
 }
 
-var scrollOffset = 10;
+var scrollOffset = 0;
 
 function scroll(a){
     scrollIndex += a;
@@ -171,7 +256,8 @@ function scroll(a){
         scrollIndex = 4;
 
     var recCont = document.getElementById("topRec");
-    recCont.style.transform = "translateX(" + ((-scrollIndex*455)+scrollOffset) + "px)";
+    // recCont.style.transform = "translateX(" + ((-scrollIndex*449)+scrollOffset) + "px)";
+    recCont.style.left = ((-scrollIndex*454)-3)+"px";
 
     var btns = document.getElementsByClassName("btn");
     if(scrollIndex == 0){
@@ -182,4 +268,100 @@ function scroll(a){
         btns[0].style.color = "black";
         btns[1].style.color = "black";
     }
+}
+
+var YTindex = 0, Tindex = 0, YTcap = 5, Tcap = 5;
+
+function incYTIndex(inc, container) {
+    YTindex += inc;
+
+    if(YTindex >= YTcap) {
+        YTindex = 0;
+    }
+    if(YTindex < 0) {
+        YTindex = YTcap-1;
+    }
+
+    // var container = document.getElementById("ytcontainer");
+    container.style.left = (-390*YTindex)+"px";
+}
+
+function incTIndex(inc, container) {
+    Tindex += inc;
+
+    if(Tindex >= Tcap) {
+        Tindex = 0;
+    }
+    if(Tindex < 0) {
+        Tindex = Tcap-1;
+    }
+
+    // var container = document.getElementById("tcontainer");
+    container.style.left = (-390*Tindex)+"px";
+}
+
+function getYoutube(name, container){
+    // API_KEY = "AIzaSyBcjlVIXezOVg54hV7_ZWrksbgg3Q1kjDE",
+    API_KEY = "AIzaSyB_RmnmWsqEfJQBPXOFTKRZLUN-MlOzKK4",
+    url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&part=snippet&maxResults=5&type=video&q=${name}`;
+    $.ajax({
+        method:'GET',
+        url:url,
+        success:function(data){
+          console.log(data)
+          //Display youtube data
+            for(var i = 0; i < data.items.length; i++){
+                //setting the limit
+                if(i == 5)
+                    break;
+                var video = document.createElement("IFRAME");
+                video.src = `https://www.youtube.com/embed/${data.items[i].id.videoId}`;
+                container.appendChild(video);
+            }
+        }
+    });
+}
+
+function getTwitch(name, container){
+    API_KEY = "24nahn5xlcv8ulpesnf3ux54kun9j3",
+    url = `https://api.twitch.tv/kraken/search/streams?first=5&query=${name}`;
+    $.ajax({
+        method:'GET',
+        url:url,
+        headers: {
+            "Accept": "application/vnd.twitchtv.v5+json",
+            "Client-ID": `${API_KEY}`
+          },
+        success:function(data){
+            console.log(data)
+            //Display twitch data
+            // const streamlink;
+            if(data.streams.length != 0){ //check to see if there are streams
+                for(var i = 0; i < data.streams.length; i++){
+                    //setting the limit
+                    if(i == 5)
+                        break;
+                    const s = data.streams[i];
+                    //check if stream game and the game name match because are some that don't
+                    if(s.game == name){
+                        var stream = document.createElement("IMG");
+                        const streamlink = String(s.channel.url).slice();
+                        console.log(streamlink);
+                        stream.onclick = function() {
+                            window.open(streamlink, "_blank");
+                        }
+                        // For charity streams???
+                        // checks to see the title of streams includes charity
+                        // if(data.streams[i].channel.status.includes("charity"))
+                        //     stream.className = "charity";
+                        stream.src = s.preview.large;
+                        container.appendChild(stream);
+                    }
+                }
+            }
+            else{ //if no streams avalible
+                container.appendChild("No streams :(")
+            }
+        }
+    });
 }
