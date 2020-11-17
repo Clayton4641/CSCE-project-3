@@ -93,14 +93,18 @@ function createCard(data) {
 
 
     //Back of the card
-    var dataYT, dataT;
+    var dataYT, dataT, flipped = false;
 
     card.addEventListener("click", 
     function() {
         card.classList.toggle("isflipped");
         //getting youtube and twitch data
-        dataYT = getYoutube(data.name, cardback);
-        dataT = getTwitch(data.name, cardback);
+        if(flipped == false){
+            dataYT = getYoutube(data.name, cardback);
+            dataT = getTwitch(data.name, cardback);
+            flipped = true;
+        }
+
     });
 
     cardback.appendChild(cardYT);
@@ -122,7 +126,7 @@ function search() {
     console.log(genre);
     url = 'https://api.rawg.io/api/games';
 
-    var dat = 'page_size=1;';
+    var dat = 'page_size=3;';
     if(name != '') {
         dat += 'search='+name+';';
     }
@@ -210,10 +214,14 @@ function getYoutube(name, cardback){
         success:function(data){
           console.log(data)
           //Display youtube data
-            for(var i = 0; i < 1; i++){
+            for(var i = 0; i < data.items.length; i++){
+                //setting the limit
+                if(i == 5)
+                    break;
                 var video = document.createElement("IFRAME");
                 video.src = `http://www.youtube.com/embed/${data.items[i].id.videoId}`;
                 cardback.appendChild(video);
+
             }
         }
     });
@@ -234,18 +242,32 @@ function getTwitch(name, cardback){
             "Client-ID": `${API_KEY}`
           },
         success:function(data){
-          console.log(data)
-          //Display twitch data
-          for(var i = 0; i < 1; i++){
-                var stream = document.createElement("IFRAME");
-                //bruh idk what to do with this, it aint workin
-                stream.src = `https://player.twitch.tv/?channel=${data.streams[i].channel.name}&html5&parent=file:///C:/Users/casua/OneDrive/Documents/CSCE315/project3/test/games.html&muted=true&autoplay=false`;
-                stream.frameborder="0";
-                stream.allowfullscreen="true";
-                stream.scrolling="no";
-                cardback.appendChild(stream);
-          }
+            console.log(data)
+            //Display twitch data
+            if(data.streams.length != 0){ //check to see if there are streams
+                for(var i = 0; i < data.streams.length; i++){
+                    //setting the limit
+                        if(i == 5)
+                            break;
+                        //check if stream game and the game name match because are some that don't
+                        if(data.streams[i].game == name){
+                            var stream = document.createElement("IMG");
+                            // For charity streams???
+                            // checks to see the title of streams includes charity
+                            // if(data.streams[i].channel.status.includes("charity"))
+                            //     stream.className = "charity";
+                            stream.src = data.streams[i].preview.large;
+                            cardback.appendChild(stream);
+                        }
+                        
+                }
+            }
+            else{ //if no streams avalible
+                cardback.appendChild("No streams :(")
+            }
         }
     });
 }
+
+
 
