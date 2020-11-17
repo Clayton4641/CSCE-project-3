@@ -33,7 +33,8 @@ function createCard(data) {
         "Xbox": 0,
         "PlayStation": 0,
         "Nintendo": 0,
-        "macOS": 0
+        "macOS": 0,
+        "Web": 0
     };
 
     var iconDict = {
@@ -41,8 +42,11 @@ function createCard(data) {
         "Xbox": "fab fa-xbox",
         "PlayStation": "fab fa-playstation",
         "Nintendo": "fas fa-gamepad",
-        "macOS": "fab fa-apple"
+        "macOS": "fab fa-apple",
+        "Web": "fab fa-internet-explorer"
     }
+
+    console.log(data.name);
 
     for(var i=0; i<data.platforms.length; ++i) {
         var platIcon = document.createElement("I");
@@ -106,7 +110,7 @@ function topGames(){
     var dateString = m.getUTCFullYear() +"-"+ (m.getUTCMonth()+1) +"-"+ m.getUTCDate();
 
     url += year +"-"+ month +"-01,"+ year +"-"+ month +"-"+ (day-1) + "&ordering=-added";
-    console.log(url);
+    // console.log(url);
     $.ajax({
     method:'GET',
     url:url,

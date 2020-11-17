@@ -51,16 +51,18 @@ function createCard(data) {
         "macOS": "fab fa-apple"
     }
 
-    for(var i=0; i<data.platforms.length; ++i) {
-        var platIcon = document.createElement("I");
+    if(data.platforms) {
+        for(var i=0; i<data.platforms.length; ++i) {
+            var platIcon = document.createElement("I");
 
-        var n = String(data.platforms[i].platform.name);
-        for(var key in platDict) {
-            if(n.includes(key) && platDict[key] == 0) {
-                platDict[key] = 1;
-                platIcon.className = iconDict[key];
-                platforms.appendChild(platIcon);
-            } 
+            var n = String(data.platforms[i].platform.name);
+            for(var key in platDict) {
+                if(n.includes(key) && platDict[key] == 0) {
+                    platDict[key] = 1;
+                    platIcon.className = iconDict[key];
+                    platforms.appendChild(platIcon);
+                } 
+            }
         }
     }
 
@@ -126,7 +128,7 @@ function search() {
     url:url,
     data : dat,
     success:function(data){
-        console.log(data)
+        // console.log(data)
         createCards(data)
 
         nextUrl = data.next;
@@ -183,4 +185,15 @@ function getGenres() {
         assignGenres(data.results)
     }
     });
+}
+
+var YTindex = 0, Tindex = 0;
+
+function incYTIndex(inc) {
+    YTindex += inc;
+
+    var container = document.getElementById("ytcontainer");
+    container.style.left = (-395*YTindex)+"px";
+
+    console.log(container.style.left);
 }
