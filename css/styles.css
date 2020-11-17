@@ -828,6 +828,7 @@ div.card div.youtube .btn {
     border: 3px solid grey;
     border-radius: 50%;
     background-color: grey;
+    pointer-events: all;
 }
 
 .btn i {
