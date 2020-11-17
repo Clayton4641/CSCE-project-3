@@ -93,14 +93,13 @@ function createCard(data) {
 
 
     //Back of the card
-    var flipped = false;
+    var dataYT, dataT, flipped = false;
 
     card.addEventListener("click", 
     function() {
         card.classList.toggle("isflipped");
-        //checks to see if the card as been flipped before, if not search twitch and youtube
-        if(flipped == false){ 
-            //getting youtube and twitch data
+        //getting youtube and twitch data
+        if(flipped == false){
             getYoutube(data.name, cardYT);
             getTwitch(data.name, cardT);
             flipped = true;
@@ -231,7 +230,8 @@ function incTIndex(inc) {
 // name - name of the game
 // container - used to update the back of the card with youtube videos
 function getYoutube(name, container){
-    API_KEY = "AIzaSyBcjlVIXezOVg54hV7_ZWrksbgg3Q1kjDE",
+    console.log("bruh");
+    var API_KEY = "AIzaSyB_RmnmWsqEfJQBPXOFTKRZLUN-MlOzKK4",
     url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&part=snippet&maxResults=5&type=video&q=${name}`;
     $.ajax({
         method:'GET',
