@@ -56,7 +56,8 @@
 
     <!-- Body -->
     <div class="recBody" id="recBody">
-        <div class="card" id="cman">
+        <!-- <div class="card" id="cman">
+            <div class="cardhover" id="cardhover"></div>
             <div class="cardfront">
                 <img class="image" src="https://via.placeholder.com/500"></img>
                 <div class="platforms">
@@ -79,7 +80,10 @@
             </div>
             <div class="cardback">
                 <div class="youtube">
+                    <i class="fab fa-youtube"></i>
                     <div class="vidcontainer" id="ytcontainer">
+                        <iframe src="https://www.youtube.com/embed/g8wpVSxtw5w?iv_load_policy=3&rel=0"></iframe>
+                        <iframe src="https://www.youtube.com/embed/g8wpVSxtw5w?iv_load_policy=3&rel=0"></iframe>
                         <iframe src="https://www.youtube.com/embed/g8wpVSxtw5w?iv_load_policy=3&rel=0"></iframe>
                         <iframe src="https://www.youtube.com/embed/g8wpVSxtw5w?iv_load_policy=3&rel=0"></iframe>
                         <iframe src="https://www.youtube.com/embed/g8wpVSxtw5w?iv_load_policy=3&rel=0"></iframe>
@@ -88,17 +92,58 @@
                     <a class="btn right" onclick="incYTIndex(-1)"> <i class="fas fa-arrow-right"></i> </a>
                 </div>
                 <div class="twitch">
-
+                    <i class="fab fa-twitch"></i>
+                    <div class="vidcontainer" id="tcontainer">
+                        <img src="https://via.placeholder.com/500">
+                        <img src="https://via.placeholder.com/500">
+                        <img src="https://via.placeholder.com/500">
+                        <img src="https://via.placeholder.com/500">
+                        <img src="https://via.placeholder.com/500">
+                    </div>
+                    <a class="btn left" onclick="incTIndex(1)"> <i class="fas fa-arrow-left"></i> </a>
+                    <a class="btn right" onclick="incTIndex(-1)"> <i class="fas fa-arrow-right"></i> </a>
                 </div>
             </div>
-        </div>
-        <script>
+        </div> -->
+        <!-- <script>
+            var i=0;
             var card = document.getElementById("cman");
             card.addEventListener("click", 
             function() {
-                card.classList.toggle("isflipped");
+                // card.style.transform = ""
+                // i++;
+                // console.log(i);
+                // card.classList.toggle('isflipped');
             });
-        </script>
+
+            var offset = 20;
+
+            var hover = document.getElementById("cardhover");
+            hover.onmouseover = function() {
+                card.style.transform = "rotateY("+((180*i)+offset)+"deg)";
+                card.style.webkitTransform = "rotateY("+((180*i)+offset)+"deg)";
+                // hover.style.right = "-20px";
+                hover.style.width = "35px";
+            };
+            hover.onmouseout = function() {
+                card.style.transform = "rotateY("+(180*i)+"deg)";
+                card.style.webkitTransform = "rotateY("+(180*i)+"deg)";
+                // hover.style.right = "-15px";
+                hover.style.width = "30px";
+            };
+            hover.onclick = function() {
+                i++;
+                var t = "rotateY("+String(180*i)+"deg)";
+                card.style.transform = t;
+                if(i%2==0) {
+                    hover.style.right = "-15px";
+                    hover.style.left = null;
+                } else {
+                    hover.style.left = "-15px";
+                    hover.style.right = "0";
+                }
+            }
+        </script> -->
     </div>
 
     <!-- Reading line -->

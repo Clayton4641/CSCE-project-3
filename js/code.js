@@ -83,13 +83,42 @@ function createCard(data) {
     cardfront.appendChild(title);
     cardfront.appendChild(genre);
 
-    card.addEventListener("click", 
-    function() {
-        card.classList.toggle("isflipped");
-        // console.log("HI");
-        // alert("HI");
-    });
+    var i = 0, offset = 20;
 
+    var hover = document.createElement("DIV");
+    hover.classList.add("cardhover");
+    hover.onmouseover = function() {
+        card.style.transform = "rotateY("+((180*i)+offset)+"deg)";
+        if(i%2==0)
+            hover.style.right = "-23px";
+        else
+            hover.style.left = "-23px";
+        hover.style.width = "40px";
+    };
+    hover.onmouseout = function() {
+        card.style.transform = "rotateY("+(180*i)+"deg)";
+        if(i%2==0)
+            hover.style.right = "-15px";
+        else
+            hover.style.left = "-15px";
+        hover.style.width = "30px";
+    };
+    hover.onclick = function() {
+        i++;
+        var t = "rotateY("+String(180*i)+"deg)";
+        card.style.transform = t;
+        if(i%2==0) {
+            hover.style.right = "-15px";
+            hover.style.left = null;
+            card.style.background = "transparent";
+        } else {
+            hover.style.left = "-15px";
+            hover.style.right = "0";
+            card.style.background = "solid";
+        }
+    }
+
+    card.appendChild(hover);
     card.appendChild(cardfront);
     card.appendChild(cardback);
 

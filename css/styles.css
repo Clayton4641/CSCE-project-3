@@ -692,7 +692,7 @@ div.card {
     box-shadow: 6px 6px 15px black;
     transition: width 1s, height 1s, transform 1s;
     transform-style: preserve-3d;
-    background-color: var(--header-bg-color);
+    background: transparent;
 }
 
 div.card:hover, div.card.isflipped:hover {
@@ -716,6 +716,8 @@ div.cardfront, div.cardback {
     position: absolute;
     width: 100%;
     height: 100%;
+    background-color: var(--header-bg-color);
+    border-radius: 30px;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
@@ -784,9 +786,24 @@ div.card div.genre a {
     border-radius: 10px;
 }
 
+div.card div.cardhover {
+    position: absolute;
+    width: 30px;
+    height: 100%;
+    right: -15px;
+    content: "";
+    cursor: pointer;
+    /* background-color: green; */
+}
+
+div.card.hover {
+    transform: rotateY(10deg);
+}
+
+
 /* Card Back */
 
-div.card div.youtube {
+div.card div.youtube, div.card div.twitch {
     width: 100%;
     height: 50%;
     background-color: transparent;
@@ -795,10 +812,10 @@ div.card div.youtube {
     overflow: hidden;
 }
 
-div.card div.youtube div.vidcontainer {
+div.card div.vidcontainer {
     margin: auto;
     position: absolute;
-    width: 400%;
+    width: 600%;
     top: 0%;
     left: 0;
     transition: left 1s;
@@ -813,7 +830,33 @@ div.card div.youtube iframe {
     padding: 10px 45px;
 }
 
-div.card div.youtube .btn {
+div.card div.youtube i.fab {
+    position: absolute;
+    bottom: 25px;
+    left: 10px;
+    font-size: 25px;
+    color: #c4302b;
+}
+
+div.card div.twitch img {
+    border-radius: 0px 0px 0px 0px;
+    cursor: default;
+    width: 300px;
+    height: 150px;
+    float: left;
+    margin: 10px 45px;
+    cursor: pointer;
+}
+
+div.card div.twitch i.fab {
+    position: absolute;
+    bottom: 25px;
+    left: 10px;
+    font-size: 25px;
+    color: #6441a5;
+}
+
+div.card .btn {
     position: absolute;
     top: 50%;
     width: 25px;
@@ -825,30 +868,39 @@ div.card div.youtube .btn {
     -ms-transform: translate(0%, -50%); 
     transform: translate(0%, -50%);
     cursor: pointer;
-    border: 3px solid grey;
-    border-radius: 50%;
-    background-color: grey;
+    /* border: 3px solid grey; */
+    /* border-radius: 50%; */
+    /* background-color: grey; */
     pointer-events: all;
 }
 
 .btn i {
     margin: auto;
+    font-size: 25px;
+    color: var(--header-title-color);
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: var(--header-title-highlight-color);
 }
 
-div.card div.youtube .btn.right {
-    right: 5px;
+.btn i:hover {
+    color: var(--header-title-color);
+    -webkit-text-stroke-color: var(--navlink-color);
 }
 
-div.card div.youtube .btn.left {
-    left: 5px;
+div.card .btn.right {
+    right: 10px;
 }
 
-div.card div.twitch {
+div.card .btn.left {
+    left: 10px;
+}
+
+/* div.card div.twitch {
     width: 100%;
     height: 50%;
     background-color: grey;
     border-radius: 20px;
-}
+} */
 
 /* Survey */
 div.survey {
