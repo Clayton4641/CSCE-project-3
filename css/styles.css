@@ -851,10 +851,10 @@ div.card div.twitch {
 
 /* Survey */
 div.survey {
-    position: fixed;
+    position: inherit;
     top: 0;
-    z-index: 9999999;
-    width: 100%;
+    /*z-index: 9999999;*/
+    width: 50%;
     height: 100%;
 }
 
@@ -865,7 +865,7 @@ div.survey div.dim {
 }
 
 div.surveyBody {
-    position: fixed;
+    position: inherit;
     width: 300px;
     height: 450px;
     background-color: var(--header-bg-color);
@@ -888,7 +888,7 @@ div.surveyBody > h1 {
 
 div.surveyBody div.button {
     width: 58px;
-    margin-top: 78px;
+    margin-top: 50px;
     padding: 8px;
     border: 3px solid var(--navlink-color);
     cursor: pointer;
