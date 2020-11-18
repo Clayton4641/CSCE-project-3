@@ -239,11 +239,11 @@ function topGames(){
 var scrollIndex = 0;
 
 function addIndex() {
-    scroll(1);
+    scroll(-1);
 }
 
 function subIndex() {
-    scroll(-1);
+    scroll(1);
 }
 
 var scrollOffset = 0;
@@ -251,9 +251,9 @@ var scrollOffset = 0;
 function scroll(a){
     scrollIndex += a;
     if(scrollIndex < 0) 
-        scrollIndex = 0;
-    if(scrollIndex > 4)
         scrollIndex = 4;
+    if(scrollIndex > 4)
+        scrollIndex = 0;
 
     var recCont = document.getElementById("topRec");
     // recCont.style.transform = "translateX(" + ((-scrollIndex*449)+scrollOffset) + "px)";

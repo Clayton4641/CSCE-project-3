@@ -106,7 +106,7 @@ function createCard(data) {
     var leftbtn = document.createElement("A");
     leftbtn.classList.add("btn");
     leftbtn.classList.add("left");
-    leftbtn.onclick = function() {incYTIndex(1, yvidcontainer);};
+    leftbtn.onclick = function() {incYTIndex(-1, yvidcontainer);};
     
     var leftbtni = document.createElement("I");
     leftbtni.classList.add("fas"); 
@@ -117,7 +117,7 @@ function createCard(data) {
     var rightbtn = document.createElement("A");
     rightbtn.classList.add("btn");
     rightbtn.classList.add("right");
-    rightbtn.onclick = function() {incYTIndex(-1, yvidcontainer);};
+    rightbtn.onclick = function() {incYTIndex(1, yvidcontainer);};
     
     var rightbtni = document.createElement("I");
     rightbtni.classList.add("fas");
@@ -147,7 +147,7 @@ function createCard(data) {
     leftbtn = document.createElement("A");
     leftbtn.classList.add("btn");
     leftbtn.classList.add("left");
-    leftbtn.onclick = function() {incTIndex(1, tvidcontainer);};
+    leftbtn.onclick = function() {incTIndex(-1, tvidcontainer);};
     
     leftbtni = document.createElement("I");
     leftbtni.classList.add("fas");
@@ -158,7 +158,7 @@ function createCard(data) {
     rightbtn = document.createElement("A");
     rightbtn.classList.add("btn");
     rightbtn.classList.add("right");
-    rightbtn.onclick = function() {incTIndex(-1, tvidcontainer);};
+    rightbtn.onclick = function() {incTIndex(1, tvidcontainer);};
     
     rightbtni = document.createElement("I");
     rightbtni.classList.add("fas");
