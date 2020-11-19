@@ -47,9 +47,10 @@ div.profilecard img {
     margin-left: auto;
     margin-right: auto;
     margin-top: 25px;
-    margin-bottom: 35px;
+    margin-bottom: 20px;
     display: block;
-    width: 65%;
+    width: 220px;
+    height: 220px;
     border-radius: 50%;
     border: 3px solid var(--header-title-color);
 }
@@ -59,6 +60,10 @@ div.profilecard h1.name {
     text-align: center;
     margin-bottom: 5px;
     color: var(--landingPage-sub-color);
+}
+
+div.profilecard h1.smaller {
+    font-size: 35px;
 }
 
 div.profilecard a, div.profilecard span {
@@ -88,5 +93,8 @@ div.profilecard span {
 i {
     font-size: 40px;
     margin-right: 10px;
+}
+
+i.pointer {
     cursor: pointer;
 }
