@@ -71,6 +71,28 @@ function getAccessibilityCookieValues(makeCookie = false){
     return cookieMade.split(".");
 }
 
+// Method that toggles colorblind value
+// Input: Bool to set value
+function toggleColorblind() {
+    var cookie = getAccessibilityCookieValues();
+
+    var colorBlindEnable = (cookie[0].split(":")[1] == "yes");
+    var visionEnable = (cookie[1].split(":")[1] == "yes");
+    
+    makeAccessibilityCookie(!colorBlindEnable, visionEnable);
+}
+
+// Method that toggles colorblind value
+// Input: Bool to set value
+function toggleVision() {
+    var cookie = getAccessibilityCookieValues();
+
+    var colorBlindEnable = (cookie[0].split(":")[1] == "yes");
+    var visionEnable = (cookie[1].split(":")[1] == "yes");
+    
+    makeAccessibilityCookie(colorBlindEnable, !visionEnable);
+}
+
 // Removes the Accessibility cookie
 function removeAccessibilityCookie(){
     Cookies.remove("Accessibility");

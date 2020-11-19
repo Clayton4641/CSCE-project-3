@@ -13,6 +13,12 @@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://kit.fontawesome.com/60e6ba57b1.js" crossorigin="anonymous"></script>
     <script src="js/readingLine.js"></script>
+    <script src="js/access.js"></script>
+
+    <!-- Cookies -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <script src="CookieScripts/User.js"></script>
+    <script src="CookieScripts/accessibilityCookie.js"></script>
 
     <!-- Setup -->
     <title>Gamer Gathering</title>
@@ -20,6 +26,22 @@
 </head>
 
 <body>
+    <script>
+        $(function() {
+            var accessCookie = getAccessibilityCookieValues(true);
+            if(accessCookie[0].split(":")[1]=="no") {
+                setmanmode(true);
+                changeStyle();
+            } else {
+                setmanmode(false);
+                changeStyle();
+            }
+    
+            if(accessCookie[1].split(":")[1]=="no") {
+                showRL();
+            }
+        });
+    </script>
     <!-- Navbar -->
     <div class="navbar" id="navbar"></div>
 

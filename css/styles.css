@@ -5,6 +5,8 @@
     --header-title-highlight-color: rgb(226, 177, 1);
     --navlink-color: rgb(146, 190, 226);
     --landingPage-sub-color: rgb(136, 183, 223);
+    --border-upper: rgb(0, 25, 61);
+    --border-lower: rgb(23, 67, 128);
 }
 
 html, body {
@@ -232,8 +234,8 @@ span.header::before{
     display: inline-block;
     content: "";
     margin-bottom: 2vh;
-    border-top: .8rem solid rgb(0, 25, 61);
-    border-bottom: .3rem solid rgb(23, 67, 128);
+    border-top: .8rem solid var(--border-upper);
+    border-bottom: .3rem solid var(--border-lower);
     width: 100vw;
 }
 

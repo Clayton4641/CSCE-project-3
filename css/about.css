@@ -5,6 +5,8 @@
     --header-title-highlight-color: rgb(226, 177, 1);
     --navlink-color: rgb(146, 190, 226);
     --landingPage-sub-color: rgb(136, 183, 223);
+    --border-upper: rgb(0, 25, 61);
+    --border-lower: rgb(23, 67, 128);
 }
 
 body {

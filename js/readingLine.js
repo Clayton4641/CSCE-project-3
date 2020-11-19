@@ -25,10 +25,3 @@ function showRL() {
         line.classList.add("hidden");
     }
 }
-
-function hideSurvey() {
-    var survey = document.getElementById("survey");
-    survey.classList.add("hidden");
-
-    document.cookie = "firstVisit=true;";
-}
