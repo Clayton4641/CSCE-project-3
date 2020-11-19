@@ -16,7 +16,7 @@ div.cards {
     margin: auto;
     margin-top: 60px;
     margin-bottom: 60px;
-    width: 90%;
+    width: 95%;
     max-height: 70vh;
     overflow: show!important;
     /* padding: 60px 150px; */
@@ -28,8 +28,8 @@ div.cards {
 div.profilecard {
     margin: auto;
     margin-bottom: 50px;
-    width: 350px;
-    min-width: 350px;
+    width: 325px;
+    min-width: 325px;
     height: 500px;
     border: 12px solid var(--navlink-color);
     border-radius: 30px;
