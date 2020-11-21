@@ -1,8 +1,16 @@
+
+var nextUrl = "";
+
 $(document).ready(function() {
-    topGames();
+    search();
+    getGenres();
 });
 
-var degOffset = 0, degInc = 72, dist = 34;
+window.onscroll = function(ev) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        getNext();
+    }
+};
 
 function createCards(data) {
     for(var i=0;i<data.results.length;++i) {
@@ -99,7 +107,7 @@ function createCard(data) {
     var leftbtn = document.createElement("A");
     leftbtn.classList.add("btn");
     leftbtn.classList.add("left");
-    leftbtn.onclick = function() {incYTIndex(1, yvidcontainer);};
+    leftbtn.onclick = function() {incYTIndex(-1, yvidcontainer);};
     
     var leftbtni = document.createElement("I");
     leftbtni.classList.add("fas"); 
@@ -110,7 +118,7 @@ function createCard(data) {
     var rightbtn = document.createElement("A");
     rightbtn.classList.add("btn");
     rightbtn.classList.add("right");
-    rightbtn.onclick = function() {incYTIndex(-1, yvidcontainer);};
+    rightbtn.onclick = function() {incYTIndex(1, yvidcontainer);};
     
     var rightbtni = document.createElement("I");
     rightbtni.classList.add("fas");
@@ -140,7 +148,7 @@ function createCard(data) {
     leftbtn = document.createElement("A");
     leftbtn.classList.add("btn");
     leftbtn.classList.add("left");
-    leftbtn.onclick = function() {incTIndex(1, tvidcontainer);};
+    leftbtn.onclick = function() {incTIndex(-1, tvidcontainer);};
     
     leftbtni = document.createElement("I");
     leftbtni.classList.add("fas");
@@ -151,7 +159,7 @@ function createCard(data) {
     rightbtn = document.createElement("A");
     rightbtn.classList.add("btn");
     rightbtn.classList.add("right");
-    rightbtn.onclick = function() {incTIndex(-1, tvidcontainer);};
+    rightbtn.onclick = function() {incTIndex(1, tvidcontainer);};
     
     rightbtni = document.createElement("I");
     rightbtni.classList.add("fas");
@@ -211,63 +219,135 @@ function createCard(data) {
     card.appendChild(cardfront);
     card.appendChild(cardback);
 
-    var body = document.getElementById("topRec");
+    var body = document.getElementById("recBody");
     body.appendChild(card);
 }
 
-function topGames(){
-    let url = "https://api.rawg.io/api/games?dates=";
-    var m = new Date();
-    var year = m.getUTCFullYear();
-    var month = (m.getUTCMonth()+1);
-    var day = m.getUTCDate();
-    var dateString = m.getUTCFullYear() +"-"+ (m.getUTCMonth()+1) +"-"+ m.getUTCDate();
+function search() {
+    var search, url, genre, name;
 
-    url += year +"-"+ month +"-01,"+ year +"-"+ month +"-"+ (day-1) + "&ordering=-added";
-    // console.log(url);
+    name = $("#name").val();
+    genre = $("#genre").val();
+    console.log(name);
+    console.log(genre);
+    url = 'https://api.rawg.io/api/games';
+
+    var dat = 'page_size=40;';
+
+    //Search
+    //Only works if search is full
+    if(name != '') {
+        dat += 'search='+name+';';
+    }
+    if(genre != '') {
+        dat += 'genres='+String(genre).toLowerCase()+';';
+        
+    }
+
+    //Getting user preferences
+    var user = openUserCookie();
+
+    //User preferences
+    //Only works if there is no search and user preferences are full
+    //Also, still works if there is no game preference
+    if(genre == '' && user.preferences.length != 0) {
+        //Adds each prefered genre
+        for(var i = 0; i < user.preferences.length; i++) {
+            dat += 'genres='+user.preferences[i]+';';
+        }
+    }
+
+    //If preference for game exists there has to be anothr two api searches. 
+    //One to find the game and it's id and the other to search for preferences.
+    if(name == '' && user.game != '') {
+        //Get GAME/ID
+        $.ajax({
+            method:'GET',
+            url:url,
+            data : `page_size=1;search=${user.game}`, //gets the first game using search
+            success:function(dataID){
+                // console.log(data)
+
+                //To get preference
+                $.ajax({
+                    method:'GET',
+                    url:`https://api.rawg.io/api/games/${dataID.results[0].id}/suggested`,
+                    data : dat,
+                    success:function(data){
+                        // console.log(data)
+                        createCards(data)
+
+                        nextUrl = data.next;
+                    }
+                });
+            }
+        });
+    }
+    // If there is no game preference
+    else {
+        $.ajax({
+        method:'GET',
+        url:url,
+        data : dat,
+        success:function(data){
+            // console.log(data)
+            createCards(data)
+
+            nextUrl = data.next;
+        }
+        });
+    }
+}
+
+function getNext() {
+    var search, url, genre, name;
+
+    name = $("#name").val();
+    genre = $("#genre").val();
+    console.log(name);
+    console.log(genre);
+    url = nextUrl;
+
     $.ajax({
     method:'GET',
     url:url,
-    data : "page_size=5;",
     success:function(data){
-        console.log(data);
-        createCards(data);
+        console.log(data)
+        createCards(data)
+
+        nextUrl = data.next;
     }
     });
 }
 
-var scrollIndex = 0;
+function newSearch() {
+    var body = document.getElementById("recBody");
+    body.innerHTML = '';
 
-function addIndex() {
-    scroll(-1);
+    search();
 }
 
-function subIndex() {
-    scroll(1);
-}
-
-var scrollOffset = 0;
-
-function scroll(a){
-    scrollIndex += a;
-    if(scrollIndex < 0) 
-        scrollIndex = 4;
-    if(scrollIndex > 4)
-        scrollIndex = 0;
-
-    var recCont = document.getElementById("topRec");
-    // recCont.style.transform = "translateX(" + ((-scrollIndex*449)+scrollOffset) + "px)";
-    recCont.style.left = ((-scrollIndex*454)-3)+"px";
-
-    var btns = document.getElementsByClassName("btn");
-    if(scrollIndex == 0){
-        btns[1].style.color = "grey";
-    } else if (scrollIndex == 4) {
-        btns[0].style.color = "grey";
-    } else {
-        btns[0].style.color = "black";
-        btns[1].style.color = "black";
+function assignGenres(data) {
+    var genreDataList = document.getElementById("genreDataList");
+    for(var i=0; i<data.length; ++i) {
+        var opt = document.createElement("OPTION");
+        opt.value = data[i].name;
+        genreDataList.appendChild(opt);
     }
+}
+
+function getGenres() {
+    url = 'https://api.rawg.io/api/genres';
+
+    $.ajax({
+    method:'GET',
+    url:url,
+    data: 'page_size=40;',
+    success:function(data){
+        console.log(data)
+        assignGenres(data.results)
+    }
+    });
 }
 
 var YTindex = 0, Tindex = 0, YTcap = 5, Tcap = 5;

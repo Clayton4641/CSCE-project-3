@@ -1,0 +1,90 @@
+:root {
+    --main-bg-color: #eeeeee;
+    --header-bg-color: rgb(0, 41, 107);
+    --header-title-color: rgb(253, 197, 0);
+    --header-title-highlight-color: rgb(226, 177, 1);
+    --navlink-color: rgb(146, 190, 226);
+    --landingPage-sub-color: rgb(136, 183, 223);
+}
+
+body {
+    background-color: var(--header-bg-color);
+}
+
+div.cards {
+    background-color: var(--header-bg-color);
+    margin: auto;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    width: 95%;
+    max-height: 70vh;
+    overflow: show!important;
+    /* padding: 60px 150px; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+div.profilecard {
+    margin: auto;
+    margin-bottom: 50px;
+    width: 325px;
+    min-width: 325px;
+    height: 500px;
+    border: 12px solid var(--navlink-color);
+    border-radius: 30px;
+    box-shadow: 6px 6px 25px black;
+    transition: transform 1s;
+}
+
+div.profilecard:hover {
+    /* transform: scale(1.01); */
+}
+
+div.profilecard img {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    margin-bottom: 35px;
+    display: block;
+    width: 65%;
+    border-radius: 50%;
+    border: 3px solid var(--header-title-color);
+}
+
+div.profilecard h1.name {
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 5px;
+    color: var(--landingPage-sub-color);
+}
+
+div.profilecard a, div.profilecard span {
+    display: block;
+    font-family: 'Rubik', sans-serif;
+    font-size: 15px;
+    text-align: center;
+    color: var(--landingPage-sub-color);
+}
+
+div.profilecard span.email {
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+div.profilecard span {
+    text-align: left;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0px 25px;
+}
+
+i {
+    font-size: 40px;
+    margin-right: 10px;
+    cursor: pointer;
+}

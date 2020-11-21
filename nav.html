@@ -1,11 +1,37 @@
 <div class="logo" onclick="location.href='index.html'">
     <span class="noselect">GG</span>
 </div>
+<div class="space"></div>
 <div class="links">
     <button class="navlink noselect" onclick="location.href='index.html'">Home</button>
     <button class="navlink noselect" onclick="location.href='games.html'">Games</button>
-    <button class="navlink noselect" onclick="location.href='streams.html'">Streams</button>
-    <button class="navlink noselect" onclick="location.href='videos.html'">Videos</button>
+    <button class="navlink noselect" onclick="location.href='about.html'">About Us</button>
 </div>
 <div class="space"></div>
-<button class="navlink noselect readinglinebtn" onclick="showRL()">Reading Guide</button>
+<button class="navlink noselect readinglinebtn" id="accessbtn">Reading Guide</button>
+<div class="access" id="access">
+    <div class="menucontainer">
+        <span>12th Man Mode</span>
+        <span>12th Man Mode</span>
+        <span>12th Man Mode</span>
+        <span>12th Man Mode</span>
+    </div>
+    
+</div>
+<script>
+    var menu = document.getElementById("access");
+    var showmenu = false;
+    document.getElementById("accessbtn").onclick = function() {
+        showmenu = !showmenu;
+        console.log(showmenu);
+        if(showmenu) {
+            console.log("HI");
+            menu.style.height = "150px";
+            menu.style.borderWidth = "5px";
+        }
+        else {
+            menu.style.height = "0px";
+            menu.style.borderWidth = "0px";
+        }
+    };
+</script>
