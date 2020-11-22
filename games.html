@@ -8,17 +8,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 
+    <!-- Cookies -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <script src="CookieScripts/User.js"></script>
+    <script src="CookieScripts/accessibilityCookie.js"></script>
+    
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://kit.fontawesome.com/60e6ba57b1.js" crossorigin="anonymous"></script>
     <script src="js/recommend.js"></script>
     <script src="js/readingLine.js"></script>
     <script src="js/access.js"></script>
-
-    <!-- Cookies -->
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
-    <script src="CookieScripts/User.js"></script>
-    <script src="CookieScripts/accessibilityCookie.js"></script>
 
     <!-- Setup -->
     <title>Gamer Gathering</title>
@@ -41,6 +41,14 @@
             if(accessCookie[1].split(":")[1]=="no") {
                 showRL();
             }
+
+            var user = openUserCookie();
+            if(user != undefined) {
+                var headerTxt = document.getElementById("headerTxt");
+                if(user.name != "")
+                    headerTxt.innerHTML = (user.name + "\'s Game Recommendations");
+            }
+
         });
     </script>
     <!-- Navbar -->
@@ -54,7 +62,7 @@
 
     <!-- Header -->
     <div class="recHeader">
-        <span class="noselect header">Your Game Recommendations</span>
+        <span class="noselect header" id="headerTxt">Your Game Recommendations</span>
         <div class="selecter">
             <a>Advanced Search</a>
             <form id="search" action="">

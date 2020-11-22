@@ -225,6 +225,12 @@ function createCard(data) {
 function search() {
     var search, url, genre, name;
 
+    var gameTitle;
+    gameTitle = openUserCookie().game;
+    // Get ID of favorite game
+    var favid = getID(gameTitle);
+    console.log(favid);
+
     name = $("#name").val();
     genre = $("#genre").val();
     console.log(name);
@@ -249,6 +255,24 @@ function search() {
 
         nextUrl = data.next;
     }
+    });
+}
+
+function getID(gameTitle) {
+    var url;
+    url = 'https://api.rawg.io/api/games';
+
+    var dat = '';
+    dat += 'search='+gameTitle+';';
+
+    $.ajax({
+    method:'GET',
+    url:url,
+    data : dat,
+    success:function(data){
+        return data.results[0].id;
+    },
+    async: false
     });
 }
 

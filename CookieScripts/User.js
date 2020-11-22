@@ -10,7 +10,7 @@ class user{
             this.name = dataAtDots[0].split(":")[1];
             this.game = dataAtDots[1].split(":")[1];
             let preferenceData = dataAtDots[2].split(":")[1].split("|");
-            for(i = 0;i<preferenceData.length-1;i++){
+            for(var i=0; i<preferenceData.length-1; i++){
                 this.preferences.push((preferenceData[i]));
             }
         }
