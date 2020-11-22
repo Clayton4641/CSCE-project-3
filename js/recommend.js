@@ -1,8 +1,8 @@
 var nextUrl = "";
 
 $(document).ready(function() {
-    search();
     getGenres();
+    personalizeSearch();
 });
 
 window.onscroll = function(ev) {
@@ -30,9 +30,6 @@ function createCard(data) {
 
     var img = document.createElement("IMG");
     img.src = data.background_image;
-    // img.onclick = function() {
-    //     window.open(data.stores[0].url_en, "_blank");
-    // }
 
     var platforms = document.createElement("DIV");
     platforms.className = "platforms"
@@ -71,6 +68,9 @@ function createCard(data) {
     var title = document.createElement("A");
     title.className = "title";
     title.innerHTML = data.name;
+    title.onclick = function() {
+        window.open(data.stores[0].url_en, "_blank");
+    }
 
     var genre = document.createElement("DIV");
     genre.className = "genre";
@@ -225,12 +225,6 @@ function createCard(data) {
 function search() {
     var search, url, genre, name;
 
-    var gameTitle;
-    gameTitle = openUserCookie().game;
-    // Get ID of favorite game
-    var favid = getID(gameTitle);
-    console.log(favid);
-
     name = $("#name").val();
     genre = $("#genre").val();
     console.log(name);
@@ -240,21 +234,78 @@ function search() {
     var dat = 'page_size=40;';
     if(name != '') {
         dat += 'search='+name+';';
-    }
+    } 
     if(genre != '') {
         dat += 'genres='+String(genre).toLowerCase()+';';
     }
 
+    console.log(dat);
     $.ajax({
-    method:'GET',
-    url:url,
-    data : dat,
-    success:function(data){
-        // console.log(data)
-        createCards(data)
+        method:'GET',
+        url: url,
+        data : dat,
+        success:function(data){
+            createCards(data)
+            nextUrl = data.next;
+        }
+    });
+}
 
-        nextUrl = data.next;
+function personalizeSearch() {
+    var url, genre, name;
+
+    var gameTitle;
+    var user = openUserCookie();
+    gameTitle = user.game;
+    // Get ID of favorite game
+    var favid;
+
+    name = $("#name").val();
+    genre = $("#genre").val();
+    console.log(name);
+    console.log(genre);
+    url = 'https://api.rawg.io/api/games';
+
+    if(user.game == "" && user.preferences[0] == "") {
+        search();
+        return;
     }
+
+    var dat = 'page_size=40;', dat2 = 'page_size=40;';
+    if(gameTitle != '')
+        dat += 'search='+gameTitle+';';
+    if(user.preferences.length != 0)
+        for(var i = 0; i < user.preferences.length; i++) {
+            dat2 += 'genres='+user.preferences[i]+';';
+        }
+
+    console.log(dat);
+    
+    $.ajax({
+        method:'GET',
+        url:url,
+        data : dat,
+        success:function(dataID){
+            favid = dataID.results[0].id;
+            $.ajax({
+                method:'GET',
+                url: `https://api.rawg.io/api/games/${favid}/suggested`,
+                data : dat,
+                success:function(data){
+                    createCards(data)
+                    nextUrl = data.next;
+                }
+                });
+        }
+    });
+    $.ajax({
+        method:'GET',
+        url:url,
+        data : dat2,
+        success:function(data){
+            createCards(data)
+            nextUrl = data.next;
+        }
     });
 }
 
@@ -393,6 +444,7 @@ function getTwitch(name, container){
             console.log(data)
             //Display twitch data
             // const streamlink;
+            var hasStream = false;
             if(data.streams.length != 0){ //check to see if there are streams
                 for(var i = 0; i < data.streams.length; i++){
                     //setting the limit
@@ -401,6 +453,7 @@ function getTwitch(name, container){
                     const s = data.streams[i];
                     //check if stream game and the game name match because are some that don't
                     if(s.game == name){
+                        hasStream = true;
                         var stream = document.createElement("IMG");
                         const streamlink = String(s.channel.url).slice();
                         console.log(streamlink);
@@ -416,8 +469,12 @@ function getTwitch(name, container){
                     }
                 }
             }
-            else{ //if no streams avalible
-                container.appendChild("No streams :(")
+            if(!hasStream){ //if no streams avalible
+                console.log("hi");
+                var nodiv = document.createElement("DIV");
+                nodiv.classList.add("nodiv");
+                nodiv.innerHTML = "No streams :(";
+                container.appendChild(nodiv);
             }
         }
     });

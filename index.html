@@ -40,7 +40,7 @@
                 changeStyle();
             }
 
-            if(accessCookie[1].split(":")[1]=="no") {
+            if(accessCookie[1].split(":")[1]=="yes") {
                 showRL();
             }
         });
@@ -142,7 +142,9 @@
 
                             <div>
                                 <label for="genre">Favorite Genres (comma separated)</label>
-                                <input type="text" id="favgenres">
+                                <input list="genreDataList" type="text" id="favgenres">
+                                <datalist id="genreDataList">
+                                </datalist>
                             </div>
                             <div class="button" onclick="cookieFromSurvey()">
                                 <a>Submit</a>

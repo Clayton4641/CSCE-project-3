@@ -1,6 +1,30 @@
 $(document).ready(function() {
     topGames();
+    getGenres();
 });
+
+function assignGenres(data) {
+    var genreDataList = document.getElementById("genreDataList");
+    for(var i=0; i<data.length; ++i) {
+        var opt = document.createElement("OPTION");
+        opt.value = data[i].name;
+        genreDataList.appendChild(opt);
+    }
+}
+
+function getGenres() {
+    url = 'https://api.rawg.io/api/genres';
+
+    $.ajax({
+    method:'GET',
+    url:url,
+    data: 'page_size=40;',
+    success:function(data){
+        console.log(data)
+        assignGenres(data.results)
+    }
+    });
+}
 
 var degOffset = 0, degInc = 72, dist = 34;
 

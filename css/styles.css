@@ -517,6 +517,24 @@ div.videoRecs {
     background-color: var(--navlink-color);
 }
 
+div.videoRecs div.textBody {
+    float: left;
+    margin: auto;
+    margin-right: 150px;
+}
+
+div.videoRecs div.explorebutton {
+    margin: auto;
+    margin-left: 50px;
+    width: 400px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    border-radius: 50px;
+}
+
 div.mainBody h1 {
     font-family: 'Rubik Mono One', sans-serif;
     background-color: transparent;
@@ -748,8 +766,6 @@ div.card img {
 
     border: 0px solid var(--navlink-color);
     border-radius: 23px 23px 0px 0px;
-
-    cursor: pointer;
 }
 
 div.card div.platforms {
@@ -766,7 +782,7 @@ div.card div.platforms i {
 div.card a.title {
     text-align: left;
     display: block;
-    height: 25%;
+    /* height: 25%; */
     margin: 8px 0;
     margin-left: 15px;
 
@@ -774,6 +790,8 @@ div.card a.title {
     font-size: 28px;
     font-weight: 900;
     color: var(--header-title-color);
+
+    cursor: pointer;
     /* -webkit-text-stroke: 1px black; */
 }
 
@@ -866,6 +884,16 @@ div.card div.twitch i.fab {
     color: #6441a5;
 }
 
+div.card div.nodiv {
+    position: absolute;
+    left: 90px;
+    bottom: -105px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: bold;
+    font-size: 35px;
+    color: white;
+}
+
 div.card .btn {
     position: absolute;
     top: 50%;
@@ -953,7 +981,7 @@ div.survey.hidden {
 /* Accessibility Menu */
 div.access {
     position: absolute;
-    width: 300px;
+    width: 280px;
     height: 0px;
     top: 80px;
     right: 15px;
@@ -963,6 +991,8 @@ div.access {
 
     overflow: hidden;
     transition: height 1s, border-width 1s ease-out;
+    display: flex;
+    justify-content: center;
 }
 
 div.access div.menucontainer {
@@ -971,6 +1001,9 @@ div.access div.menucontainer {
     padding: 6px;
     margin: auto;
     font-family: 'Rubik', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 div.menucontainer span {
