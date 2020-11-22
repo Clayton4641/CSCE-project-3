@@ -1003,3 +1003,28 @@ div.readingline.hidden {
     height: 0!important;
     border: 0px solid #fff300;
 }
+
+div.explorebutton {
+  position: inherit;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: var(--navlink-color);
+  background-color: var(--header-bg-color);
+  border: 3px solid var(--navlink-color);
+}
+
+div.explorebutton:hover {
+    color: var(--header-bg-color);
+    background-color: var(--navlink-color);
+    border: 3px solid var(--header-bg-color);
+}
+
+div.explorebutton:active {
+   color: var(--navlink-color);
+  background-color: var(--header-bg-color);
+  border: 3px solid var(--navlink-color);
+}
