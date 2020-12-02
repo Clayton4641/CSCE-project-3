@@ -246,9 +246,12 @@ function topGames(){
     var month = (m.getUTCMonth()+1);
     var day = m.getUTCDate();
     var dateString = m.getUTCFullYear() +"-"+ (m.getUTCMonth()+1) +"-"+ m.getUTCDate();
-
-    url += year +"-"+ month +"-01,"+ year +"-"+ month +"-"+ (day-1) + "&ordering=-added";
-    // console.log(url);
+    var days = day+"";
+    if (day < 10){
+        days = "0"+days;
+    }
+    url += year +"-"+ month +"-01,"+ year +"-"+ month +"-"+ days + "&ordering=-added";
+    console.log(url);
     $.ajax({
     method:'GET',
     url:url,
